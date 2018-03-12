@@ -9,7 +9,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
 
 namespace e_commerce_MVC
-{
+{   //komy
     public class Program
     {
         public static void Main(string[] args)
