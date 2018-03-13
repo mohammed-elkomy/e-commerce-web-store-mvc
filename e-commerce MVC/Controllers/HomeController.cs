@@ -6,10 +6,13 @@ namespace e_commerce_MVC.Controllers
 {
     public class HomeController : Controller
     {
-        public IActionResult Index()
+        public ViewResult Index()
         {
             return View();
         }
+
+
+        // todo: replace below methods with supported ones.
 
         public IActionResult About()
         {
