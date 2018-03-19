@@ -3,7 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 using e_commerce_MVC.Models;
 
 namespace e_commerce_MVC.Controllers
-{
+{ 
     public class HomeController : Controller
     {
         public ViewResult Index()
