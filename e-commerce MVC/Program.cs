@@ -18,8 +18,8 @@ namespace e_commerce_MVC
         }
 
         public static IWebHost BuildWebHost(string[] args) =>
-            WebHost.CreateDefaultBuilder(args)
-                .UseStartup<Startup>()
+            WebHost.CreateDefaultBuilder(args) //setup environment - kestrel / ISS integration
+                .UseStartup<Startup>() 
                 .Build();
     }
 }
