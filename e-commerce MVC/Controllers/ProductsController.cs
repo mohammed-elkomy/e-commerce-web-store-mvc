@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 
-namespace e_commerce_MVC.Controllers
+namespace ECommerce.Controllers
 {
     public class ProductsController : Controller
     {
