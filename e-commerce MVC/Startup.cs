@@ -1,13 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using ECommerce.Models.Database;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 
-namespace e_commerce_MVC
+namespace ECommerce
 {
     public class Startup
     {
@@ -21,7 +20,12 @@ namespace e_commerce_MVC
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services) 
         {
-
+            var connection = Configuration["ConnectionStrings:DefaultConnection"];
+            services.AddDbContext<ShopDbContext>(options =>
+                options.UseSqlServer(connection));
+            services.AddIdentity<Users, UserRole>()
+                .AddEntityFrameworkStores<ShopDbContext>()
+                .AddDefaultTokenProviders();
             services.AddMvc();//constructor injection..MVC built in dependency injection
         }
 
@@ -41,7 +45,7 @@ namespace e_commerce_MVC
             }
 
             app.UseStaticFiles();//wwwroot
-
+            app.UseAuthentication();
             app.UseMvc(routes =>
             {
                 routes.MapRoute(

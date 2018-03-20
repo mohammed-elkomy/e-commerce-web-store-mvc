@@ -1,0 +1,5 @@
+﻿DB:
+1-Change connection string in appsetting.json OR set the ConnectionStrings.DefaultConnection to your connection string value in command line arguments/Environment variables. (which is recommended)
+2-Open Package Manager Console
+3-Run "Update-Database"
+4-Done.

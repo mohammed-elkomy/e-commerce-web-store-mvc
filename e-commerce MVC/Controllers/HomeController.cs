@@ -1,12 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Diagnostics;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using System.Diagnostics;
+using ECommerce.Models;
 using Microsoft.AspNetCore.Mvc;
-using e_commerce_MVC.Models;
 
-namespace e_commerce_MVC.Controllers
+namespace ECommerce.Controllers
 { 
     public class HomeController : Controller
     {
