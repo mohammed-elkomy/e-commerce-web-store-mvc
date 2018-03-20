@@ -1,18 +1,15 @@
 ﻿using System.Diagnostics;
+using ECommerce.Models;
 using Microsoft.AspNetCore.Mvc;
-using e_commerce_MVC.Models;
 
-namespace e_commerce_MVC.Controllers
+namespace ECommerce.Controllers
 { 
     public class HomeController : Controller
     {
-        public ViewResult Index()
+        public IActionResult Index()
         {
             return View();
         }
-
-
-        // todo: replace below methods with supported ones.
 
         public IActionResult About()
         {

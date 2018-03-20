@@ -1,7 +1,7 @@
 ﻿using Microsoft.AspNetCore;
 using Microsoft.AspNetCore.Hosting;
 
-namespace e_commerce_MVC
+namespace ECommerce
 {   //komy
     public class Program
     {
