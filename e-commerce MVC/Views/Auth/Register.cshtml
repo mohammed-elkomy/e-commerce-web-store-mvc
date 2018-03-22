@@ -1,0 +1,44 @@
+﻿@model ECommerce.Models.ViewModels.RegisterViewModel
+@Html.Partial("Breadcrumbs");
+        <!-- register -->
+<div class="register">
+    <div class="container">
+        <h3 class="animated wow zoomIn" data-wow-delay=".5s">Register Here</h3>
+        <p class="est animated wow zoomIn" data-wow-delay=".5s">Welcome to the most useless thing in the entire universe.</p>
+        <form class="login-form-grids" id="register_form" novalidate asp-controller="Auth" asp-action="Register" method="post">
+            <h5 class="animated wow slideInUp" data-wow-delay=".5s">profile information</h5>
+
+            <div class="alert alert-danger" role="alert" id="error_message_up" hidden asp-validation-summary="All">
+            </div>
+
+            <div class="animated wow slideInUp" data-wow-delay=".5s">
+                <input type="text" placeholder="First Name..." id="reg_first" asp-for="FirstName">
+                <input type="text" placeholder="Last Name..." id="reg_last" asp-for="LastName">
+                <input type="text" placeholder="Mobile Number..." id="reg_mobile" asp-for="PhoneNumber" style="background: url('../e-commerce/images/img-sp.png')no-repeat 5px -329px  #fff">
+            </div>
+
+            <div class="register-check-box animated wow slideInUp" data-wow-delay=".5s">
+                <div class="check">
+                    <label class="checkbox"><input type="checkbox" name="checkbox"><i> </i>Subscribe to Newsletter</label>
+                </div>
+            </div>
+            <h6 class="animated wow slideInUp" data-wow-delay=".5s">Login information</h6>
+
+            <div class="animated wow slideInUp" data-wow-delay=".5s">
+
+                <input type="email" placeholder="Email Address" id="reg_email" asp-for="Email">
+                <input type="text" placeholder="User name" asp-for="UserName">
+                <input type="password" placeholder="Password" id="reg_password" asp-for="Password">
+                <input type="password" placeholder="Password Confirmation" id="conf_reg_password" asp-for="ConfirmPassword">
+                <div class="register-check-box">
+                    <div class="check">
+                        <label class="checkbox"><input type="checkbox" name="checkbox" id="terms_chk"><i> </i>I accept the terms and conditions</label>
+                    </div>
+                </div>
+                <input type="submit" value="Register">
+            </div>
+        </form>
+
+    </div>
+</div>
+<!-- //register -->

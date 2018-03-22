@@ -415,6 +415,7 @@ $(function() {
         searchConfig.perPage = parseInt(searchConfig.perPage) || 9;
         searchConfig.page = parseInt(searchConfig.page) || 1;
         searchConfig.category = parseInt(searchConfig.category) || 0;
+        searchConfig.keywords = searchConfig.keywords || '';
         console.log(searchConfig);
     }
 

@@ -8,6 +8,11 @@ namespace ECommerce.Controllers
         {
             return View();
         }
+
+        public RedirectResult Search(string keywords)
+        {
+            return Redirect(Url.Action("Index", "Products") + "#keywords=" + keywords);
+        }
         public ViewResult Single()
         {
             return View();

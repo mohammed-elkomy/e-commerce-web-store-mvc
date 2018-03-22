@@ -53,8 +53,8 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
                 <ul>
                     <li><i class="glyphicon glyphicon-envelope" aria-hidden="true"></i><a href="mailto:info@example.com">info@@example.com</a></li>
                     <li><i class="glyphicon glyphicon-earphone" aria-hidden="true"></i>+1234 567 892</li>
-                    <li><i class="glyphicon glyphicon-log-in" aria-hidden="true"></i><a asp-controller="Users" asp-action="Login">Login</a></li>
-                    <li><i class="glyphicon glyphicon-book" aria-hidden="true"></i><a asp-controller="Users" asp-action="Register">Register</a></li>
+                    <li><i class="glyphicon glyphicon-log-in" aria-hidden="true"></i><a asp-controller="Auth" asp-action="Login">Login</a></li>
+                    <li><i class="glyphicon glyphicon-book" aria-hidden="true"></i><a asp-controller="Auth" asp-action="Register">Register</a></li>
                 </ul>
             </div>
             <div class="header-grid-right animated wow slideInRight" data-wow-delay=".5s">
@@ -167,7 +167,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
                                 </ul>
                             </li>
                             @*<li><a href="short-codes.html">Short Codes</a></li>*@
-                            <li><a href="contact%20us.html">Mail Us</a></li>
+                            <li><a asp-controller="Home" asp-action="Contact">Mail Us</a></li>
                         </ul>
                     </div>
                 </nav>
@@ -176,7 +176,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
                 <div class="search-box">
                     <div id="sb-search" class="sb-search">
                         <form asp-controller="Products" asp-action="Search">
-                            <input class="sb-search-input" placeholder="Enter your search term..." type="search" id="search">
+                            <input name="keywords" class="sb-search-input" placeholder="Enter your search term..." type="search" id="search">
                             <input class="sb-search-submit" type="submit" value="">
                             <span class="sb-icon-search"> </span>
                         </form>
