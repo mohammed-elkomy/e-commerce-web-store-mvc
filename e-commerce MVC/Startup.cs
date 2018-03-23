@@ -27,6 +27,12 @@ namespace ECommerce
                 .AddEntityFrameworkStores<ShopDbContext>()
                 .AddDefaultTokenProviders();
             services.AddMvc();//constructor injection..MVC built in dependency injection
+            services.ConfigureApplicationCookie(action =>
+            {
+                action.LoginPath = "/Auth/Login";
+                action.LogoutPath = "/Auth/Logout";
+                action.ReturnUrlParameter = "returnUrl";
+            });
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

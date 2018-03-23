@@ -5,7 +5,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 namespace ECommerce.Models.Database
 {
     [Table("sales")]
-    public partial class Sales
+    public class Sales
     {
         [Column("id")]
         public int Id { get; set; }

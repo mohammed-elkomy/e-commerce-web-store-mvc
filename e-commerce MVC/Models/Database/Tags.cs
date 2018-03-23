@@ -5,7 +5,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 namespace ECommerce.Models.Database
 {
     [Table("tags")]
-    public partial class Tags
+    public class Tags
     {
         public Tags()
         {

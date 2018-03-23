@@ -4,7 +4,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 namespace ECommerce.Models.Database
 {
     [Table("messages")]
-    public partial class Messages
+    public class Messages
     {
         [Column("id")]
         public int Id { get; set; }

@@ -5,7 +5,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 namespace ECommerce.Models.Database
 {
     [Table("products")]
-    public partial class Products
+    public class Products
     {
         public Products()
         {

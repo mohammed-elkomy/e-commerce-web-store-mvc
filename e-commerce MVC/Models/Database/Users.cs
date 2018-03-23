@@ -20,7 +20,6 @@ namespace ECommerce.Models.Database
         public string Lastname { get; set; }
         [Required]
         public override string Email { get; set; }
-        public string Image { get; set; }
         [Required]
         public bool NewsSubscription { get; set; }
         public string Phone { get; set; }

@@ -10,8 +10,8 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace ECommerce.Migrations
 {
     [DbContext(typeof(ShopDbContext))]
-    [Migration("20180320182035_Init")]
-    partial class Init
+    [Migration("20180323093228_RemoveImage")]
+    partial class RemoveImage
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -247,9 +247,6 @@ namespace ECommerce.Migrations
 
                     b.Property<string>("Firstname")
                         .IsRequired()
-                        .IsUnicode(false);
-
-                    b.Property<string>("Image")
                         .IsUnicode(false);
 
                     b.Property<string>("Lastname")

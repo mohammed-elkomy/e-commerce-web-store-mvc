@@ -7,18 +7,22 @@
         <h3 class="animated wow zoomIn" data-wow-delay=".5s">Login Here</h3>
 
         <p class="est animated wow zoomIn" data-wow-delay=".5s">Welcome to the most useless thing in the entire universe.</p>
-        @if (!string.IsNullOrWhiteSpace(ViewData["Success"].ToString()))
+        @if (!string.IsNullOrWhiteSpace(ViewData["Success"]?.ToString()))
         {
             <div class="success alert-success">@ViewData["Success"]</div>
         }
         <div class="login-form-grids animated wow slideInUp" data-wow-delay=".5s">
             <form id="login_form" novalidate asp-controller="Auth" asp-action="Login" asp-route-returnUrl="@ViewData["ReturnUrl"]" method="post">
-                <div class="alert alert-danger" role="alert" id="error_message" hidden asp-validation-summary="All">
+            @if (!ViewData.ModelState.IsValid)
+            {
+                <div class="alert alert-danger" role="alert" id="error_message_up" asp-validation-summary="All">
                 </div>
-
+            }
                 <input placeholder="UserName" id="login_email" asp-for="UserName">
                 <input type="password" placeholder="Password" id="login_password" asp-for="Password">
-                @Html.EditorFor(o => o.RememberMe)
+                <div>
+                    @Html.EditorFor(o => o.RememberMe) <small>Remember me?</small>
+                </div>
                 <div class="forgot">
                     <a asp-action="ForgotMyPassword">Forgot Password?</a>
                 </div>

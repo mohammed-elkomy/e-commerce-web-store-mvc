@@ -1,5 +1,4 @@
-﻿using System;
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
 using ECommerce.Models.Database;
 using ECommerce.Models.ViewModels;
 using Microsoft.AspNetCore.Authorization;
@@ -51,35 +50,47 @@ namespace ECommerce.Controllers
         }
 
         [HttpGet]
-        public IActionResult Register()
+        public IActionResult Register(string returnUrl)
         {
+            ViewData["ReturnUrl"] = returnUrl;
             return View();
         }
         [HttpPost]
-        public async Task<IActionResult> Register(RegisterViewModel model, IFormFile image )
+        public async Task<IActionResult> Register(RegisterViewModel model, IFormFile image)
         {
             if (ModelState.IsValid)
             {
+                if (!model.ToSAgreed)
+                {
+                    ModelState.AddModelError(nameof(model.ToSAgreed),"Must agree to ToS");
+                    return View();
+                }
                 var user = new Users
                 {
                     Email = model.Email,
                     UserName = model.UserName,
                     Firstname = model.FirstName,
                     Lastname = model.LastName,
-                    Phone = model.PhoneNumber
+                    Phone = model.PhoneNumber,
+                    NewsSubscription = model.SubscripedToNews
                 };
                 var result = await _userManager.CreateAsync(user, model.Password);
                 if (result.Succeeded)
                 {
+                    if (image != null && image.Length > 0)
+                        using (var stream = System.IO.File.OpenWrite($"./wwwroot/usersImages/{user.Id}.jpg"))
+                            await image.CopyToAsync(stream);
+
                     ViewData["Success"] = "Registered Successfully";
                     return View("Login");
                 }
 
-                ModelState.AddModelError(String.Empty, "Error registering, please validate your data and try again.");
+                foreach (var error in result.Errors)
+                    ModelState.AddModelError(string.Empty, error.Description);
                 return View();
             }
-
-            ModelState.AddModelError(String.Empty, "Invalid model.");
+            
+            ModelState.AddModelError(string.Empty, "Invalid model.");
             return View();
         }
 
@@ -97,8 +108,9 @@ namespace ECommerce.Controllers
 
         [HttpPost]
         [Authorize]
-        public IActionResult Logout()
+        public async Task<IActionResult> Logout()
         {
+            await _signInManager.SignOutAsync();
             return RedirectToAction("Index", "Home");
         }
     }

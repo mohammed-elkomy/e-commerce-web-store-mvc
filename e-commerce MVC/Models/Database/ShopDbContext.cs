@@ -1,10 +1,9 @@
-﻿using Microsoft.AspNetCore.Identity;
-using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
+﻿using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 
 namespace ECommerce.Models.Database
 {
-    public partial class ShopDbContext : IdentityDbContext<Users,IdentityRole<int>,int>
+    public class ShopDbContext : IdentityDbContext<Users,UserRole,int>
     {
         public virtual DbSet<Ads> Ads { get; set; }
         public virtual DbSet<Categories> Categories { get; set; }
@@ -13,7 +12,6 @@ namespace ECommerce.Models.Database
         public virtual DbSet<Products> Products { get; set; }
         public virtual DbSet<Sales> Sales { get; set; }
         public virtual DbSet<Tags> Tags { get; set; }
-        public virtual DbSet<Users> Users { get; set; }
 
         public ShopDbContext(DbContextOptions options) : base(options) { }
 
@@ -104,9 +102,7 @@ namespace ECommerce.Models.Database
                 entity.Property(e => e.Email).IsUnicode(false);
 
                 entity.Property(e => e.Firstname).IsUnicode(false);
-
-                entity.Property(e => e.Image).IsUnicode(false);
-
+                
                 entity.Property(e => e.Lastname).IsUnicode(false);
             });
             base.OnModelCreating(modelBuilder);

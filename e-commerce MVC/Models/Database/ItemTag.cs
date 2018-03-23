@@ -3,7 +3,7 @@
 namespace ECommerce.Models.Database
 {
     [Table("itemTag")]
-    public partial class ItemTag
+    public class ItemTag
     {
         [Column("product_id")]
         public int ProductId { get; set; }

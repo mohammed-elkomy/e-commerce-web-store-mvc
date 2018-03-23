@@ -5,21 +5,30 @@
     <div class="container">
         <h3 class="animated wow zoomIn" data-wow-delay=".5s">Register Here</h3>
         <p class="est animated wow zoomIn" data-wow-delay=".5s">Welcome to the most useless thing in the entire universe.</p>
-        <form class="login-form-grids" id="register_form" novalidate asp-controller="Auth" asp-action="Register" method="post">
+        <form class="login-form-grids" id="register_form" enctype="multipart/form-data" novalidate asp-controller="Auth" asp-action="Register" asp-route-returnUrl="@ViewData["ReturnUrl"]" method="post">
             <h5 class="animated wow slideInUp" data-wow-delay=".5s">profile information</h5>
-
-            <div class="alert alert-danger" role="alert" id="error_message_up" hidden asp-validation-summary="All">
-            </div>
-
+            @if (!ViewData.ModelState.IsValid)
+    {
+        <div class="alert alert-danger" role="alert" id="error_message_up" asp-validation-summary="All">
+        </div>
+}
             <div class="animated wow slideInUp" data-wow-delay=".5s">
                 <input type="text" placeholder="First Name..." id="reg_first" asp-for="FirstName">
                 <input type="text" placeholder="Last Name..." id="reg_last" asp-for="LastName">
-                <input type="text" placeholder="Mobile Number..." id="reg_mobile" asp-for="PhoneNumber" style="background: url('../e-commerce/images/img-sp.png')no-repeat 5px -329px  #fff">
+                <input type="text" placeholder="Mobile Number..." id="reg_mobile" asp-for="PhoneNumber" style="background: url('/images/img-sp.png')no-repeat 5px -329px  #fff">
+                
             </div>
 
             <div class="register-check-box animated wow slideInUp" data-wow-delay=".5s">
                 <div class="check">
-                    <label class="checkbox"><input type="checkbox" name="checkbox"><i> </i>Subscribe to Newsletter</label>
+                    <label><i> </i>Personal Image:</label>
+                    <input type="file" name="Image" />
+                </div>
+            </div>
+
+            <div class="register-check-box animated wow slideInUp" data-wow-delay=".5s">
+                <div class="check">
+                    <label class="checkbox"><input type="checkbox" asp-for="SubscripedToNews"><i> </i>Subscribe to Newsletter</label>
                 </div>
             </div>
             <h6 class="animated wow slideInUp" data-wow-delay=".5s">Login information</h6>
@@ -32,7 +41,7 @@
                 <input type="password" placeholder="Password Confirmation" id="conf_reg_password" asp-for="ConfirmPassword">
                 <div class="register-check-box">
                     <div class="check">
-                        <label class="checkbox"><input type="checkbox" name="checkbox" id="terms_chk"><i> </i>I accept the terms and conditions</label>
+                        <label class="checkbox"><input type="checkbox" asp-for="ToSAgreed" id="terms_chk"><i> </i>I accept the terms and conditions</label>
                     </div>
                 </div>
                 <input type="submit" value="Register">
