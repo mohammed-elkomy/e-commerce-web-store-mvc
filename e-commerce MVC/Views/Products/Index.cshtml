@@ -1,4 +1,5 @@
-﻿@Html.Partial("Breadcrumbs")
+﻿@using ECommerce.Models
+@Html.Partial("Breadcrumbs")
 <div class="products">
     <div class="container">
         <div class="col-md-4 products-left">
@@ -149,10 +150,10 @@
                 <div class="products-right-grids animated wow slideInRight" data-wow-delay=".5s">
                     <div class="sorting">
                         <select id="orderBy" class="frm-field required sect">
-                            <option value="0">Default sorting</option>
-                            <option value="1">Sort by popularity</option>
-                            <option value="2">Sort by average rating</option>
-                            <option value="3">Sort by price</option>
+                            @foreach (var ord in Enum.GetNames(typeof(OrderBy)))
+                            {
+                                <option value="@Enum.Parse(typeof(OrderBy),ord)">@ord</option>
+                            }
                         </select>
                     </div>
                     <div class="sorting-left">
