@@ -1,9 +1,31 @@
 ﻿
-	<div class="breadcrumbs">
-    <div class="container">
-        <ol class="breadcrumb breadcrumb1 animated wow slideInLeft" data-wow-delay=".5s">
-            <li><a href="index.html"><span class="glyphicon glyphicon-home" aria-hidden="true"></span>Home</a></li>
-            <li class="active">Single Page</li>
-        </ol>
-    </div>
-</div>
+@{
+    var controller = ViewContext.RouteData.Values["controller"].ToString();
+    var action = ViewContext.RouteData.Values["action"].ToString();
+    if (action != "Index" && controller != "Home")
+    {
+        <div class="breadcrumbs">
+            <div class="container">
+                <ol class="breadcrumb breadcrumb1 animated wow slideInLeft" data-wow-delay=".5s">
+                    <li>
+                        <a asp-controller="Home" asp-action="Index">
+                            Home <i class="fa fa-home"></i>
+                        </a>
+                    </li>
+                    @if (controller != "Home")
+                    {
+                        <li>
+                            @Html.ActionLink(controller, "Index", controller);
+                        </li>
+                    }
+                    @if (action != "Index")
+                    {
+                        <li>
+                            @Html.ActionLink(controller, action, controller);
+                        </li>
+                    }
+                </ol>
+            </div>
+        </div>
+    }
+}
