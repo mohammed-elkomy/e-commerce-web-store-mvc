@@ -19,20 +19,23 @@ namespace ECommerce.Models.Database
         [Column("name")]
         [StringLength(50)]
         public string Name { get; set; }
-        [Column("images")]
-        [StringLength(50)]
-        public string Images { get; set; }
+        [Column("image1")]
+        public string Image1 { get; set; }
+        [Column("image2")]
+        public string Image2 { get; set; }
+        [Column("image3")]
+        public string Image3 { get; set; }
         [Column("price")]
-        public double? Price { get; set; }
+        public double Price { get; set; }
         [Column("description", TypeName = "text")]
         public string Description { get; set; }
         [Column("category")]
         public int Category { get; set; }
         [Column("sold_count")]
-        public int? SoldCount { get; set; }
+        public int SoldCount { get; set; }
         [Required]
         [Column("on_sale", TypeName = "binary(1)")]
-        public byte[] OnSale { get; set; }
+        public bool OnSale { get; set; }
         [Column("sale_info")]
         public double? SaleInfo { get; set; }
 

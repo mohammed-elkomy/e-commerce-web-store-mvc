@@ -64,7 +64,9 @@ namespace ECommerce.Models.Database
 
             modelBuilder.Entity<Products>(entity =>
             {
-                entity.Property(e => e.Images).IsUnicode(false);
+                entity.Property(e => e.Image1).IsUnicode(false);
+                entity.Property(e => e.Image2).IsUnicode(false);
+                entity.Property(e => e.Image3).IsUnicode(false);
 
                 entity.Property(e => e.Name).IsUnicode(false);
 
