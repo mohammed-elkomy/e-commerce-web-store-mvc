@@ -24,7 +24,7 @@ namespace ECommerce.Models.Database
         [Column("message", TypeName = "text")]
         public string Message { get; set; }
         [Required]
-        [Column("readed", TypeName = "binary(1)")]
-        public byte[] Readed { get; set; }
+        [Column("read")]
+        public bool Read { get; set; }
     }
 }
