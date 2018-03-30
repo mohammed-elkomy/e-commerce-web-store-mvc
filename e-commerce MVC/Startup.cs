@@ -1,4 +1,4 @@
-﻿using ECommerce.Models.Database;
+﻿using ECommerce.Models.NewDb;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Identity;
@@ -21,10 +21,10 @@ namespace ECommerce
         public void ConfigureServices(IServiceCollection services) 
         {
             var connection = Configuration["ConnectionStrings:DefaultConnection"];
-            services.AddDbContext<ShopDbContext>(options =>
+            services.AddDbContext<DataContext>(options =>
                 options.UseSqlServer(connection));
-            services.AddIdentity<Users, UserRole>()
-                .AddEntityFrameworkStores<ShopDbContext>()
+            services.AddIdentity<User, UserRole>()
+                .AddEntityFrameworkStores<DataContext>()
                 .AddDefaultTokenProviders();
             services.AddMvc();//constructor injection..MVC built in dependency injection
             services.ConfigureApplicationCookie(action =>

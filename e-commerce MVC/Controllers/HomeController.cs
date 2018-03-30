@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Threading.Tasks;
-using ECommerce.Models.Database;
+using ECommerce.Models.NewDb;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
@@ -20,11 +20,10 @@ namespace ECommerce.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> Contact(Messages model, [FromServices] ShopDbContext dbContext)
+        public async Task<IActionResult> Contact(Message model, [FromServices] DataContext dbContext)
         {
             if (ModelState.IsValid)
             {
-                model.Read = false;
                 var res = await dbContext.Messages.AddAsync(model);
                 if (res.State == EntityState.Added && dbContext.SaveChanges() > 0)
                 {

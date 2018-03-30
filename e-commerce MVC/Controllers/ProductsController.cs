@@ -1,15 +1,16 @@
-﻿using System.Linq;
+﻿using System;
+using System.Linq;
 using ECommerce.Models;
-using ECommerce.Models.Database;
+using ECommerce.Models.NewDb;
 using Microsoft.AspNetCore.Mvc;
 
 namespace ECommerce.Controllers
 {
     public class ProductsController : Controller
     {
-        private readonly ShopDbContext _context;
+        private readonly DataContext _context;
 
-        public ProductsController(ShopDbContext context)
+        public ProductsController(DataContext context)
         {
             _context = context;
         }
@@ -29,7 +30,7 @@ namespace ECommerce.Controllers
             if (maxPrice != null)
                 result = result.Where(o => o.Price <= maxPrice);
             if (category != null)
-                result = result.Where(o => o.Category == category);
+                result = result.Where(o => o.CategoryId == category);
             if (!string.IsNullOrWhiteSpace(keywords))
                 result = result.Where(o => o.Name.Contains(keywords));
             switch (orderBy)
@@ -48,6 +49,7 @@ namespace ECommerce.Controllers
             }
 
             result = result.Skip(page * perPage).Take(perPage);
+            SetAd(category);
             return View(result);
         }
 
@@ -59,8 +61,17 @@ namespace ECommerce.Controllers
                 return RedirectToAction("Index");
             }
 
+            SetAd(product.CategoryId);
             return View(product);
         }
-        
+
+
+        private void SetAd(int? category)
+        {
+            var ads = _context.Advertisements.Where(a => a.Enabled);
+            if (category != null)
+                ads.Where(a => a.Categories.Any(c => c.CategoryId == category));
+            ViewData["Ad"] = ads.Skip(new Random().Next(ads.Count() - 1)).Take(1);
+        }
     }
 }

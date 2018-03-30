@@ -1,4 +1,4 @@
-﻿@model ECommerce.Models.Database.Messages
+﻿@model ECommerce.Models.NewDb.Message
 <!-- mail -->
 <div class="mail animated wow zoomIn" data-wow-delay=".5s">
     <div class="container">
@@ -20,10 +20,10 @@
                     </div>
                 }
                 <form asp-controller="Home" asp-action="Contact" method="post" novalidate>
-                    <input type="text" asp-for="SenderName" placeholder="Name">
-                    <input type="email" asp-for="SenderEmail" placeholder="Email">
+                    <input type="text" asp-for="Name" placeholder="Name">
+                    <input type="email" asp-for="Email" placeholder="Email">
                     <input type="text" asp-for="Subject" placeholder="Subject">
-                    <textarea placeholder="Message..." type="text"  asp-for="Message"></textarea>
+                    <textarea placeholder="Message..." type="text"  asp-for="Content"></textarea>
                     <input type="submit" value="Submit Now">
                 </form>
             </div>
