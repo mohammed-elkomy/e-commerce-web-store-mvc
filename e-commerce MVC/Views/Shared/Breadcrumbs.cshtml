@@ -15,13 +15,13 @@
                     @if (controller != "Home")
                     {
                         <li>
-                            @Html.ActionLink(controller, "Index", controller);
+                            @Html.ActionLink(controller, "Index", controller)
                         </li>
                     }
                     @if (action != "Index")
                     {
                         <li>
-                            @Html.ActionLink(controller, action, controller);
+                            @Html.ActionLink(action, action, controller)
                         </li>
                     }
                 </ol>

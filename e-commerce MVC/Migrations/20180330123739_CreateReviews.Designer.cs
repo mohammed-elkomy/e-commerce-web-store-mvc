@@ -11,9 +11,10 @@ using System;
 namespace ECommerce.Migrations
 {
     [DbContext(typeof(ShopDbContext))]
-    partial class ShopDbContextModelSnapshot : ModelSnapshot
+    [Migration("20180330123739_CreateReviews")]
+    partial class CreateReviews
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -171,9 +172,6 @@ namespace ECommerce.Migrations
 
                     b.Property<double?>("SaleInfo")
                         .HasColumnName("sale_info");
-
-                    b.Property<string>("ShortDescription")
-                        .HasMaxLength(255);
 
                     b.Property<int>("SoldCount")
                         .HasColumnName("sold_count");

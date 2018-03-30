@@ -1,8 +1,11 @@
 ﻿@using ECommerce.Models
+@using ECommerce.Models.Database
+@model IEnumerable<Products>
+
 <div class="products">
     <div class="container">
         <div class="col-md-4 products-left">
-            <div class="filter-price animated wow slideInUp" data-wow-delay=".5s">
+            <div class="filter-price animated  slideInUp">
                 <h3>Filter By Price</h3>
                 <ul class="dropdown-menu1">
                     <li>
@@ -15,7 +18,7 @@
                 <script type="text/javascript" src="/js/jquery-ui.min.js"></script>
                 <!---->
             </div>
-            <div class="categories animated wow slideInUp" data-wow-delay=".5s">
+            <div class="categories animated  slideInUp">
                 <h3>Categories</h3>
                 <div id="categories">
                     <ul class="cate">
@@ -41,7 +44,7 @@
                     </ul>
                 </div>
             </div>
-            <div class="new-products animated wow slideInUp" data-wow-delay=".5s">
+            <div class="new-products animated  slideInUp">
                 <h3>New Products</h3>
                 <div class="new-products-grids">
                     <div class="new-products-grid">
@@ -136,7 +139,7 @@
                     </div>
                 </div>
             </div>
-            <div class="men-position animated wow slideInUp" data-wow-delay=".5s" SpecialOffer>
+            <div class="men-position animated  slideInUp" SpecialOffer>
                 <a href="single.html"><img src="/images/27.jpg" alt=" " class="img-responsive" /></a>
                 <div class="men-position-pos">
                     <h4>Summer collection</h4>
@@ -146,7 +149,7 @@
         </div>
         <div class="col-md-8 products-right">
             <div class="products-right-grid">
-                <div class="products-right-grids animated wow slideInRight" data-wow-delay=".5s">
+                <div class="products-right-grids animated  slideInRight">
                     <div class="sorting">
                         <select id="orderBy" class="frm-field required sect">
                             @foreach (var ord in Enum.GetNames(typeof(OrderBy)))
@@ -166,7 +169,7 @@
                     </div>
                     <div class="clearfix"> </div>
                 </div>
-                <div class="products-right-grids-position animated wow slideInRight" data-wow-delay=".5s">
+                <div class="products-right-grids-position animated  slideInRight">
                     <img src="/images/18.jpg" alt=" " class="img-responsive" />
                     <div class="products-right-grids-position1">
                         <h4>2016 New Collection</h4>
@@ -175,8 +178,53 @@
                 </div>
             </div>
             <div id="searchContent" class="products-right-grids-bottom">
+
+                @{
+                    var groups = Model.Select((o, i) => (i, o)).GroupBy(o => o.Item1 / 3);
+                    foreach (var group in groups)
+                    {
+                        <div class="col-md-4 products-right-grids-bottom-grid">
+                            @foreach ((int, Products) tuple in group)
+                            {
+                                var product = tuple.Item2;
+                                <div class="new-collections-grid1 products-right-grid1 animated slideInUp">
+                                    <div class="new-collections-grid1-image">
+                                        <a asp-controller="Products" asp-action="Single" asp-route-id="@product.Id">
+                                            <img src="/images/19.jpg" alt=" " class="img-responsive">
+                                        </a>
+                                        <div class="new-collections-grid1-image-pos products-right-grids-pos">
+                                            <a asp-controller="Products" asp-action="Single" asp-route-id="@product.Id">
+                                                Quick View
+                                            </a>
+                                        </div>
+                                        <div class="new-collections-grid1-right products-right-grids-pos-right">
+                                            <div class="rating">
+                                                <div class="rating-left">
+                                                    <img src="@($"/ProductsImages/{product.Image1}")" alt=" " class="img-responsive">
+                                                </div>
+                                                <div class="rating-left">
+                                                    <img src="@($"/ProductsImages/{product.Image2}")" alt=" " class="img-responsive">
+                                                </div>
+                                                <div class="rating-left">
+                                                    <img src="@($"/ProductsImages/{product.Image3}")" alt=" " class="img-responsive">
+                                                </div>
+                                                <div class="clearfix"></div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <h4><a asp-controller="Products" asp-action="Single" asp-route-id="@product.Id"> @product.Name</a></h4>
+                                    <p>@product.Description</p>
+                                    <div class="simpleCart_shelfItem products-right-grid1-add-cart">
+                                        <p><i></i><span class="item_price">@product.Price</span><a class="item_add"></a></p>
+                                    </div>
+                                </div>
+                            }
+                        </div>
+                    }
+                }
+                <div class="clearfix"></div>
             </div>
-            <nav class="numbering animated wow slideInRight" data-wow-delay=".5s">
+            <nav class="numbering animated  slideInRight">
                 <ul id="pagination" class="pagination paging"></ul>
             </nav>
         </div>
@@ -185,8 +233,6 @@
 </div>
 
 
-@section Scripts{ 
+@section Scripts{
     <script src="/js/jquery.twbsPagination.min.js"></script>
-    <script src="/js/productsLoader.js"></script>
-
 }

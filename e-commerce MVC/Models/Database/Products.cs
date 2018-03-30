@@ -29,6 +29,8 @@ namespace ECommerce.Models.Database
         public double Price { get; set; }
         [Column("description", TypeName = "text")]
         public string Description { get; set; }
+        [StringLength(255)]
+        public string ShortDescription { get; set; }
         [Column("category")]
         public int Category { get; set; }
         [Column("sold_count")]
@@ -46,5 +48,8 @@ namespace ECommerce.Models.Database
         public ICollection<ItemTag> ItemTag { get; set; }
         [InverseProperty("Product")]
         public ICollection<Sales> Sales { get; set; }
+        [InverseProperty("Product")]
+        public ICollection<Review> Reviews { get; set; }
+
     }
 }

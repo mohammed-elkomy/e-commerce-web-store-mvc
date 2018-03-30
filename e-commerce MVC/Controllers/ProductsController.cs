@@ -14,28 +14,26 @@ namespace ECommerce.Controllers
             _context = context;
         }
 
-        public ViewResult Index()
+        public ViewResult Index(
+            int? minPrice = null,
+            int? maxPrice = null,
+            int perPage = 9,
+            int page = 0,
+            int? category = null,
+            string keywords = null,
+            OrderBy orderBy = OrderBy.Default)
         {
-            return View();
-        }
-
-        public RedirectResult Search(string keywords)
-        {
-            return Redirect(Url.Action("Index", "Products") + "#keywords=" + keywords);
-        }
-
-        public PartialViewResult GetProducts(int minPrice, int maxPrice, int perPage, int page, int? category, string keywords=null, OrderBy orderBy= OrderBy.Default)
-        {
-            var result = _context.Products.Where(o => o.Price >= minPrice).Where(o => o.Price <= maxPrice);
+            var result = _context.Products.AsQueryable();
+            if (minPrice != null)
+                result = result.Where(o => o.Price >= minPrice);
+            if (maxPrice != null)
+                result = result.Where(o => o.Price <= maxPrice);
             if (category != null)
                 result = result.Where(o => o.Category == category);
             if (!string.IsNullOrWhiteSpace(keywords))
                 result = result.Where(o => o.Name.Contains(keywords));
             switch (orderBy)
             {
-                case OrderBy.Default:
-                    result = result.OrderBy(o => o.Id);
-                    break;
                 case OrderBy.Price:
                     result = result.OrderBy(o => o.Price);
                     break;
@@ -44,22 +42,25 @@ namespace ECommerce.Controllers
                     break;
                 case OrderBy.AverageRating:
                     break;
+                default:
+                    result = result.OrderBy(o => o.Id);
+                    break;
             }
 
             result = result.Skip(page * perPage).Take(perPage);
-            return PartialView(result);
+            return View(result);
         }
 
-        public ViewResult Single(int id)
+        public IActionResult Single(int id)
         {
-            return View();
-        }
+            var product = _context.Products.Find(id);
+            if (product == null || product.Id < 1)
+            {
+                return RedirectToAction("Index");
+            }
 
-        [HttpGet]
-        [ResponseCache(Duration = 300)]
-        public JsonResult CategoryTree()
-        {
-            return Json(null);
+            return View(product);
         }
+        
     }
 }

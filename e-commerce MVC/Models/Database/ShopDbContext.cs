@@ -12,6 +12,7 @@ namespace ECommerce.Models.Database
         public virtual DbSet<Products> Products { get; set; }
         public virtual DbSet<Sales> Sales { get; set; }
         public virtual DbSet<Tags> Tags { get; set; }
+        public virtual DbSet<Review> Reviews { get; set; }
 
         public ShopDbContext(DbContextOptions options) : base(options) { }
 
@@ -107,6 +108,7 @@ namespace ECommerce.Models.Database
                 
                 entity.Property(e => e.Lastname).IsUnicode(false);
             });
+            
             base.OnModelCreating(modelBuilder);
         }
     }
