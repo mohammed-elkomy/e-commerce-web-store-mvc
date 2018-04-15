@@ -1,5 +1,6 @@
 ﻿using System.Threading.Tasks;
 using ECommerce.Models.Database;
+using ECommerce.Models.NewDb;
 using ECommerce.Models.ViewModels;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
@@ -10,10 +11,10 @@ namespace ECommerce.Controllers
 {
     public class AuthController : Controller
     {
-        private readonly SignInManager<Users> _signInManager;
-        private readonly UserManager<Users> _userManager;
+        private readonly SignInManager<User> _signInManager;
+        private readonly UserManager<User> _userManager;
 
-        public AuthController(SignInManager<Users> signInManager, UserManager<Users> userManager)
+        public AuthController(SignInManager<User> signInManager, UserManager<User> userManager)
         {
             _signInManager = signInManager;
             _userManager = userManager;
@@ -65,7 +66,7 @@ namespace ECommerce.Controllers
                     ModelState.AddModelError(nameof(model.ToSAgreed),"Must agree to ToS");
                     return View();
                 }
-                var user = new Users
+                var user = new User
                 {
                     Email = model.Email,
                     UserName = model.UserName,

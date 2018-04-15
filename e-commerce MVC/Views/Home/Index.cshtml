@@ -1,4 +1,6 @@
-﻿    <!-- banner -->
+﻿@using ECommerce.Models.NewDb
+@model IList<Product>
+    <!-- banner -->
 <div class="banner">
     <div class="container">
         <div class="banner-info animated wow zoomIn" data-wow-delay=".5s">
@@ -31,7 +33,7 @@
             </div>
             <script src="/js/jquery.wmuSlider.js"></script>
             <script>
-                    $('.example1').wmuSlider();
+                $('.example1').wmuSlider();
             </script>
         </div>
     </div>
@@ -44,47 +46,53 @@
             <div class="banner-bottom-grid-left animated wow slideInLeft" data-wow-delay=".5s">
                 <div class="grid">
                     <figure class="effect-julia">
-                        <img src="/images/4.jpg" alt=" " class="img-responsive" />
-                        <figcaption>
-                            <h3>Best <span>Store</span><i> in online shopping</i></h3>
-                            <div>
-                                <p>Cupidatat non proident, sunt</p>
-                                <p>Officia deserunt mollit anim</p>
-                                <p>Laboris nisi ut aliquip consequat</p>
-                            </div>
-                        </figcaption>
+                        <a asp-controller="Products" asp-action="Single" asp-route-id="@Model[0].Id">
+                            <img src="@(Model[0].Images.FirstOrDefault()?.Url)" alt=" " class="img-responsive" />
+                            <figcaption>
+                                <h3>@Model[0].Name</h3>
+                                <div>
+                                    <p>@Model[0].ShortDescription</p>
+                                </div>
+                            </figcaption>
+                        </a>
                     </figure>
                 </div>
             </div>
             <div class="banner-bottom-grid-left1 animated wow slideInUp" data-wow-delay=".5s">
                 <div class="banner-bottom-grid-left-grid left1-grid grid-left-grid1">
-                    <div class="banner-bottom-grid-left-grid1">
-                        <img src="/images/1.jpg" alt=" " class="img-responsive" />
-                    </div>
-                    <div class="banner-bottom-grid-left1-pos">
-                        <p>Discount 45%</p>
-                    </div>
+                    <a asp-controller="Products" asp-action="Single" asp-route-id="@Model[1].Id">
+                        <div class="banner-bottom-grid-left-grid1
+                        <img src="@(Model[1].Images.FirstOrDefault()?.Url)" alt=" " class="img-responsive" />
+                        </div>
+                        <div class="banner-bottom-grid-left1-pos">
+                            <p>@Model[1].Name</p>
+                        </div>
+                    </a>
                 </div>
                 <div class="banner-bottom-grid-left-grid left1-grid grid-left-grid1">
-                    <div class="banner-bottom-grid-left-grid1">
-                        <img src="/images/2.jpg" alt=" " class="img-responsive" />
-                    </div>
-                    <div class="banner-bottom-grid-left1-position">
-                        <div class="banner-bottom-grid-left1-pos1">
-                            <p>Latest New Collections</p>
+                    <a asp-controller="Products" asp-action="Single" asp-route-id="@Model[2].Id">
+                        <div class="banner-bottom-grid-left-grid1">
+                            <img src="@(Model[2].Images.FirstOrDefault()?.Url)" alt=" " class="img-responsive" />
                         </div>
-                    </div>
+                        <div class="banner-bottom-grid-left1-position">
+                            <div class="banner-bottom-grid-left1-pos1">
+                                <p>@Model[2].Name</p>
+                            </div>
+                        </div>
+                    </a>
                 </div>
             </div>
             <div class="banner-bottom-grid-right animated wow slideInRight" data-wow-delay=".5s">
-                <div class="banner-bottom-grid-left-grid grid-left-grid1">
-                    <div class="banner-bottom-grid-left-grid1">
-                        <img src="/images/3.jpg" alt=" " class="img-responsive" />
+                <a asp-controller="Products" asp-action="Single" asp-route-id="@Model[3].Id">
+                    <div class="banner-bottom-grid-left-grid grid-left-grid1">
+                        <div class="banner-bottom-grid-left-grid1">
+                            <img src="@(Model[3].Images.FirstOrDefault()?.Url)" alt=" " class="img-responsive" />
+                        </div>
+                        <div class="grid-left-grid1-pos">
+                            <p>@Model[3].Name</p>
+                        </div>
                     </div>
-                    <div class="grid-left-grid1-pos">
-                        <p>top and classic designs <span>2016 Collection</span></p>
-                    </div>
-                </div>
+                </a>
             </div>
             <div class="clearfix"> </div>
         </div>
@@ -352,71 +360,27 @@
     </div>
 </div>
 <!-- //collections -->
-<!-- new-timer -->
-<div class="timer">
-    <div class="container">
-        <div class="timer-grids">
-            <div class="col-md-8 timer-grid-left animated wow slideInLeft" data-wow-delay=".5s">
-                <h3><a href="products.html">sunt in culpa qui officia deserunt mollit</a></h3>
-                <div class="rating">
-                    <div class="rating-left">
-                        <img src="/images/2.png" alt=" " class="img-responsive" />
-                    </div>
-                    <div class="rating-left">
-                        <img src="/images/2.png" alt=" " class="img-responsive" />
-                    </div>
-                    <div class="rating-left">
-                        <img src="/images/2.png" alt=" " class="img-responsive" />
-                    </div>
-                    <div class="rating-left">
-                        <img src="/images/2.png" alt=" " class="img-responsive" />
-                    </div>
-                    <div class="rating-left">
-                        <img src="/images/1.png" alt=" " class="img-responsive" />
-                    </div>
-                    <div class="clearfix"> </div>
-                </div>
-                <div class="new-collections-grid1-left simpleCart_shelfItem timer-grid-left-price">
-                    <p><i>$580</i> <span class="item_price">$550</span></p>
-                    <h4>
-                        Ut enim ad minima veniam, quis nostrum exercitationem ullam corporis suscipit laboriosam,
-                        nisi ut aliquid ex ea commodi consequatur? Quis autem vel eum iure reprehenderit
-                        qui in ea voluptate velit esse quam nihil molestiae consequatur, vel illum qui
-                        dolorem eum fugiat quo voluptas nulla pariatur.
-                    </h4>
-                    <p><a class="item_add timer_add" href="#">add to cart </a></p>
-                </div>
-                <div id="counter"> </div>
-                <script src="/js/jquery.countdown.js"></script>
-                <script src="/js/script.js"></script>
-            </div>
-            <div class="col-md-4 timer-grid-right animated wow slideInRight" data-wow-delay=".5s">
-                <div class="timer-grid-right1">
-                    <img src="/images/17.jpg" alt=" " class="img-responsive" />
-                    <div class="timer-grid-right-pos">
-                        <h4>Special Offer</h4>
-                    </div>
-                </div>
-            </div>
-            <div class="clearfix"> </div>
-        </div>
-    </div>
-</div>
-<!-- //new-timer -->
 <!-- collections-bottom -->
 <div class="collections-bottom">
     <div class="container">
-        <div class="collections-bottom-grids">
-            <div class="collections-bottom-grid animated wow slideInLeft" data-wow-delay=".5s">
-                <h3>45% Offer For <span>Women & Children's</span></h3>
-            </div>
-        </div>
+        @{
+            var p = ViewData["LeastSold"] as Product;
+            if (p != null)
+            {
+                <div class="collections-bottom-grids" style="background:url(@(p.Images.FirstOrDefault()?.Url))">
+                    <div class="collections-bottom-grid animated wow slideInLeft" data-wow-delay=".5s">
+                        <h3>45% Offer</h3>
+                    </div>
+                </div>
+            }
+        }
         <div class="newsletter animated wow slideInUp" data-wow-delay=".5s">
             <h3>Newsletter</h3>
             <p>Join us now to get all news and special offers.</p>
-            <form>
+            <form asp-controller="Auth" asp-action="Register">
                 <span class="glyphicon glyphicon-envelope" aria-hidden="true"></span>
-                <input type="email" value="Enter your email address" onfocus="this.value = '';" onblur="if (this.value == '') {this.value = 'Enter your email address';}" required="">
+                <input name="email" type="email" value="Enter your email address" onfocus="this.value = '';" onblur="if (this.value == '') { this.value = 'Enter your email address'; }" required="">
+                <input type="hidden" value="true" name="SubscripedToNews" />
                 <input type="submit" value="Join Us">
             </form>
         </div>

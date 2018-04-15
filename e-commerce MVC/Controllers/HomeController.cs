@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 using System.Threading.Tasks;
 using ECommerce.Models.NewDb;
 using Microsoft.AspNetCore.Mvc;
@@ -8,9 +9,15 @@ namespace ECommerce.Controllers
 { 
     public class HomeController : Controller
     {
-        public IActionResult Index()
+        public IActionResult Index([FromServices] DataContext dataContext)
         {
-            return View();
+            var result = dataContext.Products
+                .OrderByDescending(o => o.SoldCount)
+                .Take(4)
+                .Include(o=> o.Images)
+                .ToList();
+            ViewData["LeastSold"] = dataContext.Products.OrderBy(o => o.SoldCount).Include(o=> o.Images).FirstOrDefault();
+            return View(result);
         }
 
         [HttpGet]
