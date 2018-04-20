@@ -215,7 +215,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
                         <a href="checkout.html">
                             <h3>
                                 <div class="total">
-                                    <span class="simpleCart_total"></span> (<span id="simpleCart_quantity" class="simpleCart_quantity"></span> items)
+                                    <span class="simpleCart_total"></span> (<span id="simpleCart_quantity" class="simpleCart_quantity">@(Context.Request.Cookies["Count"] ?? "0")</span> items)
                                 </div>
                                 <img src="/images/bag.png" alt="" />
                             </h3>

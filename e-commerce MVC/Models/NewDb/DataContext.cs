@@ -8,6 +8,7 @@ namespace ECommerce.Models.NewDb
         public DataContext(DbContextOptions options) : base(options) { }
 
         public virtual DbSet<Advertisement> Advertisements { get; set; }
+        public virtual DbSet<ShopCart> ShopCarts { get; set; }
         public virtual DbSet<Category> Categories { get; set; }
         public virtual DbSet<Image> Images { get; set; }
         public virtual DbSet<Message> Messages { get; set; }
@@ -21,8 +22,12 @@ namespace ECommerce.Models.NewDb
 
             builder.Entity<ProductTag>()
                 .HasKey(o => new {o.TagId, o.ProductId});
+
             builder.Entity<CategoryAdvertisement>()
                 .HasKey(o => new {o.CategoryId, o.AdvertisementId});
+
+            builder.Entity<ShopCart>()
+                .HasKey(o => new {o.Id, o.ProductId});
         }
     }
 }
