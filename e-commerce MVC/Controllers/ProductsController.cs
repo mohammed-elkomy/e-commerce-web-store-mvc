@@ -70,7 +70,7 @@ namespace ECommerce.Controllers
         {
             var ads = _context.Advertisements.Where(a => a.Enabled);
             if (category != null)
-                ads.Where(a => a.Categories.Any(c => c.CategoryId == category));
+                ads = ads.Where(a => a.Categories.Any(c => c.CategoryId == category));
             ViewData["Ad"] = ads.Skip(new Random().Next(ads.Count() - 1)).Take(1);
         }
     }
