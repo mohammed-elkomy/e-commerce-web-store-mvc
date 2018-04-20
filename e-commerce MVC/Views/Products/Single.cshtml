@@ -56,8 +56,8 @@
                 <h3>@Model.Name</h3>
                 <h4><span class="item_price">@Model.Price.ToString("C")</span></h4>
                 @{
-                    double count = Model.Reviews.Count();
-                    var total = Model.Reviews.Aggregate(0, (res, rev) => res += rev.Rating);
+                    double count = Model.Reviews.Count;
+                    var total = Model.Reviews.Aggregate(0, (res, rev) => res + rev.Rating);
                     var result = (int)Math.Round(total / count);
                     <div class="rating1">
                         <span class="starRating">
@@ -76,8 +76,7 @@
                     </p>
                 </div>
                 <div class="occasion-cart">
-                    @*// todo: implement adding to cart*@
-                    <a class="item_add" data-id="@Model.Id">Add to cart </a>
+                    <a asp-controller="Cart" asp-action="AddToCart" asp-route-id="@Model.Id" class="item_add" data-id="@Model.Id">Add to cart </a>
                 </div>
                 <div class="social">
                     <div class="social-left">

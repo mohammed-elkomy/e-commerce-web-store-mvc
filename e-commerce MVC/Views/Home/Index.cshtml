@@ -116,7 +116,7 @@
                                 <img src="@Model[i].Images.FirstOrDefault()?.Url" alt=" " class="img-responsive" />
                             </a>
                             <div class="new-collections-grid1-image-pos">
-                                <a href="single.html">Quick View</a>
+                                <a asp-controller="Products" asp-action="Single" asp-route-id="@Model[i].Id">Quick View</a>
                             </div>
                             <div class="new-collections-grid1-right">
                                 <div class="rating">
@@ -133,7 +133,10 @@
                         <h4><a asp-controller="Products" asp-action="Single" asp-route-id="@Model[i].Id">@Model[i].Name</a></h4>
                         <p>@Model[i].ShortDescription</p>
                         <div class="new-collections-grid1-left simpleCart_shelfItem">
-                            <p><span class="item_price">@Model[i].Price.ToString("C")</span><a class="item_add">add to cart </a></p>
+                            <p>
+                                <span class="item_price">@Model[i].Price.ToString("C")</span>
+                                <a asp-controller="Cart" asp-action="AddToCart" asp-route-id="@Model[i].Id" class="item_add">add to cart </a>
+                            </p>
                         </div>
                     </div>
                     <div class="new-collections-grid1 animated wow slideInUp" data-wow-delay=".5s">
@@ -142,7 +145,7 @@
                                 <img src="@Model[i+1].Images.FirstOrDefault()?.Url" alt=" " class="img-responsive" />
                             </a>
                             <div class="new-collections-grid1-image-pos">
-                                <a href="single.html">Quick View</a>
+                                <a asp-controller="Products" asp-action="Single" asp-route-id="@Model[i+1].Id">Quick View</a>
                             </div>
                             <div class="new-collections-grid1-right">
                                 <div class="rating">
@@ -159,7 +162,10 @@
                         <h4><a asp-controller="Products" asp-action="Single" asp-route-id="@Model[i+1].Id">@Model[i + 1].Name</a></h4>
                         <p>@Model[i + 1].ShortDescription</p>
                         <div class="new-collections-grid1-left simpleCart_shelfItem">
-                            <p><span class="item_price">@Model[i + 1].Price.ToString("C")</span><a class="item_add">add to cart </a></p>
+                            <p>
+                                <span class="item_price">@Model[i + 1].Price.ToString("C")</span>
+                                <a asp-controller="Cart" asp-action="AddToCart" asp-route-id="@Model[i+1].Id" class="item_add">add to cart </a>
+                            </p>
                         </div>
                     </div>
                 </div>

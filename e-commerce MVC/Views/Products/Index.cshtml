@@ -218,7 +218,11 @@
                                     <h4><a asp-controller="Products" asp-action="Single" asp-route-id="@product.Id"> @product.Name</a></h4>
                                     <p>@product.ShortDescription</p>
                                     <div class="simpleCart_shelfItem products-right-grid1-add-cart">
-                                        <p><i></i><span class="item_price">@product.Price</span><a class="item_add" data-id="@product.Id"></a></p>
+                                        <p>
+                                            <i></i>
+                                            <span class="item_price">@product.Price</span>
+                                            <a asp-controller="Cart" asp-action="AddToCart" asp-route-id="@product.Id" class="item_add" data-id="@product.Id"></a>
+                                        </p>
                                     </div>
                                 </div>
                             }
