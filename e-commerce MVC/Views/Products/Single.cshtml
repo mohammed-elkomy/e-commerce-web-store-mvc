@@ -76,7 +76,7 @@
                     </p>
                 </div>
                 <div class="occasion-cart">
-                    <a asp-controller="Cart" asp-action="AddToCart" asp-route-id="@Model.Id" class="item_add" data-id="@Model.Id">Add to cart </a>
+                    <a asp-controller="Cart" asp-action="AddToCart" asp-route-id="@Model.Id" asp-route-quantity="1" class="item_add" data-id="@Model.Id">Add to cart </a>
                 </div>
                 <div class="social">
                     <div class="social-left">

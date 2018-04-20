@@ -135,7 +135,7 @@
                         <div class="new-collections-grid1-left simpleCart_shelfItem">
                             <p>
                                 <span class="item_price">@Model[i].Price.ToString("C")</span>
-                                <a asp-controller="Cart" asp-action="AddToCart" asp-route-id="@Model[i].Id" class="item_add">add to cart </a>
+                                <a asp-controller="Cart" asp-action="AddToCart" asp-route-id="@Model[i].Id" asp-route-quantity="1" class="item_add">add to cart </a>
                             </p>
                         </div>
                     </div>
@@ -164,7 +164,7 @@
                         <div class="new-collections-grid1-left simpleCart_shelfItem">
                             <p>
                                 <span class="item_price">@Model[i + 1].Price.ToString("C")</span>
-                                <a asp-controller="Cart" asp-action="AddToCart" asp-route-id="@Model[i+1].Id" class="item_add">add to cart </a>
+                                <a asp-controller="Cart" asp-action="AddToCart" asp-route-id="@Model[i+1].Id" asp-route-quantity="1" class="item_add">add to cart </a>
                             </p>
                         </div>
                     </div>

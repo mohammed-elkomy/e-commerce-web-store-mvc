@@ -221,7 +221,7 @@
                                         <p>
                                             <i></i>
                                             <span class="item_price">@product.Price</span>
-                                            <a asp-controller="Cart" asp-action="AddToCart" asp-route-id="@product.Id" class="item_add" data-id="@product.Id"></a>
+                                            <a asp-controller="Cart" asp-action="AddToCart" asp-route-id="@product.Id" asp-route-quantity="1" class="item_add" data-id="@product.Id"></a>
                                         </p>
                                     </div>
                                 </div>
