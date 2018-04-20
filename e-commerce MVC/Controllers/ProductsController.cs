@@ -1,7 +1,9 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using ECommerce.Models;
 using ECommerce.Models.NewDb;
+using ECommerce.Models.ViewModels;
 using Microsoft.AspNetCore.Mvc;
 
 namespace ECommerce.Controllers
@@ -48,6 +50,15 @@ namespace ECommerce.Controllers
                     break;
             }
 
+            ViewData["minPrice"] = minPrice;
+            ViewData["maxPrice"] = maxPrice;
+            ViewData["perPage"] = perPage;
+            ViewData["page"] = page;
+            ViewData["category"] = category;
+            ViewData["keywords"] = keywords;
+            ViewData["orderBy"] = orderBy;
+
+            BuildCategoryTree(result);
             result = result.Skip(page * perPage).Take(perPage);
             SetAd(category);
             return View(result);
@@ -72,6 +83,26 @@ namespace ECommerce.Controllers
             if (category != null)
                 ads = ads.Where(a => a.Categories.Any(c => c.CategoryId == category));
             ViewData["Ad"] = ads.Skip(new Random().Next(ads.Count() - 1)).Take(1);
+        }
+
+        private void BuildCategoryTree(IQueryable<Product> products)
+        {
+            var categoryTree = _context.Categories.ToLookup(c => c.ParentId);
+            ViewData["CategoryTree"] = BuildSubTree(null);
+
+            CategoryTreeEntry BuildSubTree(int? key)
+            {
+                var result = new CategoryTreeEntry { Id = key, Children = new List<CategoryTreeEntry>() };
+                foreach (var category in categoryTree[key])
+                {
+                    var child = BuildSubTree(category.Id);
+                    result.Children.Add(child);
+                    result.Count += child.Count;
+                }
+
+                result.Count += products.Count(p => p.CategoryId == key);
+                return result;
+            }
         }
     }
 }

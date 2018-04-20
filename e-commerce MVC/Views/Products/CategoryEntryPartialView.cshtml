@@ -1,0 +1,28 @@
+﻿@using ECommerce.Models.ViewModels
+@model CategoryTreeEntry
+
+<li>
+    <a
+        asp-controller="Products"
+        asp-action="Index"
+        asp-route-category="@Model.Id"
+        asp-route-keywords="@ViewData["keywords"]"
+        asp-route-maxPrice="@ViewData["maxPrice"]"
+        asp-route-minPrice="@ViewData["minPrice"]"
+        asp-route-orderBy="@ViewData["orderBy"]"
+        asp-route-page="@ViewData["page"]"
+        asp-route-perPage="@ViewData["perPage"]"
+    >
+        @Model.Name
+    </a>
+    <span>(@Model.Count)</span>
+</li>
+@if (Model.Children.Any())
+{
+    <ul>
+        @foreach (var child in Model.Children)
+        {
+            @Html.Partial("CategoryEntryPartialView",child)
+        }
+    </ul>                        
+}
