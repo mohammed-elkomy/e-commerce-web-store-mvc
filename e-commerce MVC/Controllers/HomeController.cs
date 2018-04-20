@@ -13,7 +13,7 @@ namespace ECommerce.Controllers
         {
             var result = dataContext.Products
                 .OrderByDescending(o => o.SoldCount)
-                .Take(4)
+                .Take(11)
                 .Include(o=> o.Images)
                 .ToList();
             ViewData["LeastSold"] = dataContext.Products.OrderBy(o => o.SoldCount).Include(o=> o.Images).FirstOrDefault();
