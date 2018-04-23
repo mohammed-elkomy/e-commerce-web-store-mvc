@@ -1,5 +1,4 @@
 ﻿using System.Threading.Tasks;
-using ECommerce.Models.Database;
 using ECommerce.Models.NewDb;
 using ECommerce.Models.ViewModels;
 using Microsoft.AspNetCore.Authorization;
@@ -57,7 +56,7 @@ namespace ECommerce.Controllers
             return View();
         }
         [HttpPost]
-        public async Task<IActionResult> Register(RegisterViewModel model, IFormFile image)
+        public async Task<IActionResult> Register(RegisterViewModel model, IFormFile image, string returnUrl)
         {
             if (ModelState.IsValid)
             {
@@ -83,7 +82,7 @@ namespace ECommerce.Controllers
                             await image.CopyToAsync(stream);
 
                     ViewData["Success"] = "Registered Successfully";
-                    return View("Login");
+                    return RedirectToAction(nameof(Login), new {returnUrl});
                 }
 
                 foreach (var error in result.Errors)
