@@ -1,7 +1,9 @@
 ﻿using System;
 using System.Linq;
 using ECommerce.Models.NewDb;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 
 namespace ECommerce.Controllers
 {
@@ -51,6 +53,22 @@ namespace ECommerce.Controllers
             _context.ShopCarts.RemoveRange(_context.ShopCarts.Where(c => c.Id == uid));
             Response.Cookies.Append("Count", "0");
             return Redirect(Request.Headers["Referer"].ToString());
+        }
+
+        public ViewResult Checkout()
+        {
+            var uid = GetUid();
+            var products = _context.ShopCarts
+                .Where(c => c.Id == uid)
+                .Include(c => c.Product)
+                    .ThenInclude(p => p.Images);
+            return View(products.ToList());
+        }
+
+        [Authorize]
+        public ViewResult Payment()
+        {
+            return View();
         }
 
         private string GetUid()

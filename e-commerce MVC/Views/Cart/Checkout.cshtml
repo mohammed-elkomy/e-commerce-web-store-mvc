@@ -1,0 +1,83 @@
+﻿@model List<ECommerce.Models.NewDb.ShopCart>
+@{
+    ViewData["Title"] = "Checkout";
+}
+
+<!-- checkout -->
+<div class="checkout">
+    <div class="container">
+        <h3 class="animated wow slideInLeft" data-wow-delay=".5s">Your shopping cart contains: <span>@Model.Count() Products</span></h3>
+        <div class="checkout-right animated wow slideInUp" data-wow-delay=".5s">
+            <table class="timetable_sub">
+                <thead>
+                    <tr>
+                        <th>SL No.</th>
+                        <th>Product</th>
+                        <th>Quantity</th>
+                        <th>Product Name</th>
+                        <th>Service Charges</th>
+                        <th>Price</th>
+                        <th>Remove</th>
+                    </tr>
+                </thead>
+                @{
+                    for (var i = 0; i < Model.Count; i++)
+                    {
+                        var entry = Model[i];
+                        <tr class="rem1">
+                            <td class="invert">@i</td>
+                            <td class="invert-image">
+                                <a asp-controller="Products" asp-action="Single" asp-route-id="@entry.Id">
+                                    <img src="@(entry.Product.Images.FirstOrDefault()?.Url)" alt=" " class="img-responsive" />
+                                </a>
+                            </td>
+                            <td class="invert">
+                                <div class="quantity">
+                                    <div class="quantity-select">
+                                        <a asp-controller="Cart" asp-action="AddToCart" asp-route-id="@entry.ProductId" asp-route-quantity="@(entry.Quantity+1)" class="entry value-minus">&nbsp;</a>
+                                        <div class="entry value"><span>@entry.Quantity</span></div>
+                                        <a asp-controller="Cart" asp-action="AddToCart" asp-route-id="@entry.ProductId" asp-route-quantity="@(entry.Quantity-1)" class="entry value-plus active">&nbsp;</a>
+                                    </div>
+                                </div>
+                            </td>
+                            <td class="invert">@entry.Product.Name</td>
+                            <td class="invert">@entry.Product.Price.ToString("C")</td>
+                            <td class="invert">@((entry.Product.Price * entry.Quantity).ToString("C"))</td>
+                            <td class="invert">
+                                <div class="rem">
+                                    <a asp-controller="Cart" asp-action="AddToCart" asp-route-id="@entry.ProductId" asp-route-quantity="0" class="close1"> </a>
+                                </div>
+                            </td>
+                        </tr>
+                    }
+                }
+            </table>
+        </div>
+        <div class="checkout-left">
+            <div class="checkout-left-basket animated wow slideInLeft" data-wow-delay=".5s">
+                <a asp-controller="Cart" asp-action="Payment">
+                    <h4>Start Payment</h4>
+                </a>
+                <ul>
+                    @{
+                        var total = 0d;
+                        foreach (var entry in Model)
+                        {
+                            total += entry.Product.Price * entry.Quantity;
+                            <li>@entry.Product.Name <i>-</i> <span>@((entry.Product.Price * entry.Quantity).ToString("C")) </span></li>
+                        }
+                        <li>Total <i>-</i> <span>@total.ToString("C") </span></li>
+                    }
+                </ul>
+            </div>
+            <div class="checkout-right-basket animated wow slideInRight" data-wow-delay=".5s">
+                <a asp-controller="Products" asp-action="Index">
+                    <span class="glyphicon glyphicon-menu-left" aria-hidden="true"></span>
+                    Continue Shopping
+                </a>
+            </div>
+            <div class="clearfix"> </div>
+        </div>
+    </div>
+</div>
+<!-- //checkout -->
