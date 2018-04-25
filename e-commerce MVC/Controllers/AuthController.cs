@@ -41,8 +41,11 @@ namespace ECommerce.Controllers
             {
                 var result =
                     await _signInManager.PasswordSignInAsync(model.UserName, model.Password, model.RememberMe, false);
-                if (result.Succeeded)
-                    return RedirectToLocal(returnUrl);
+                if (result.Succeeded) {
+                   
+                    Response.Cookies.Append("UserName", model.UserName);
+
+                    return RedirectToLocal(returnUrl); }
                 ModelState.AddModelError(string.Empty, "Wrong username/password combination.");
             }
             
@@ -106,7 +109,7 @@ namespace ECommerce.Controllers
         }
 
 
-        [HttpPost]
+        [HttpGet]
         [Authorize]
         public async Task<IActionResult> Logout()
         {
