@@ -1,5 +1,9 @@
 ﻿@using ECommerce.Models.NewDb
+@using Microsoft.AspNetCore.Identity
+
 @inject DataContext Database
+@inject SignInManager<User> SignInManager
+@inject Microsoft.AspNetCore.Http.IHttpContextAccessor HttpContextAccessor
 <!--
 Author: W3layouts
 Author URL: http://w3layouts.com
@@ -51,10 +55,19 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
             <div class="header-grid">
                 <div class="header-grid-left animated wow slideInLeft" data-wow-delay=".5s">
                     <ul>
-                        <li><i class="glyphicon glyphicon-envelope" aria-hidden="true"></i><a href="mailto:info@example.com">info@@example.com</a></li>
-                        <li><i class="glyphicon glyphicon-earphone" aria-hidden="true"></i>+1234 567 892</li>
-                        <li><i class="glyphicon glyphicon-log-in" aria-hidden="true"></i><a asp-controller="Auth" asp-action="Login">Login</a></li>
-                        <li><i class="glyphicon glyphicon-book" aria-hidden="true"></i><a asp-controller="Auth" asp-action="Register">Register</a></li>
+
+                        @if (SignInManager.IsSignedIn(User))
+                        {
+                            @*<li><i class="glyphicon glyphicon-envelope" aria-hidden="true"></i><a href="mailto:info@example.com">info@@example.com</a></li>*@
+                            <li><i class="glyphicon glyphicon-user" aria-hidden="true"></i>@HttpContextAccessor.HttpContext.Request.Cookies["UserName"]</li>
+                            <li><i class="glyphicon glyphicon-log-out" aria-hidden="true"></i><a asp-controller="Auth" asp-action="Logout">Logout</a></li>
+                        }
+                        else
+                        {
+                            <li><i class="glyphicon glyphicon-log-in" aria-hidden="true"></i><a asp-controller="Auth" asp-action="Login">Login</a></li>
+                            <li><i class="glyphicon glyphicon-book" aria-hidden="true"></i><a asp-controller="Auth" asp-action="Register">Register</a></li>
+
+                        }
                     </ul>
                 </div>
                 <div class="header-grid-right animated wow slideInRight" data-wow-delay=".5s">

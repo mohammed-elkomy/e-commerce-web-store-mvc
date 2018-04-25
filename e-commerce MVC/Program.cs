@@ -2,7 +2,7 @@
 using Microsoft.AspNetCore.Hosting;
 
 namespace ECommerce
-{   //komy
+{
     public class Program
     {
         public static void Main(string[] args)
@@ -11,7 +11,7 @@ namespace ECommerce
         }
 
         public static IWebHost BuildWebHost(string[] args) => 
-            WebHost.CreateDefaultBuilder(args) //setup environment - kestrel / ISS integration
+            WebHost.CreateDefaultBuilder(args) //setup environment - kestrel / IIS integration
                 .UseStartup<Startup>() 
                 .Build();
     }
