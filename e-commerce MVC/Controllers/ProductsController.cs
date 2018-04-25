@@ -82,7 +82,13 @@ namespace ECommerce.Controllers
             var ads = _context.Advertisements.Where(a => a.Enabled);
             if (category != null)
                 ads = ads.Where(a => a.Categories.Any(c => c.CategoryId == category));
-            ViewData["Ad"] = ads.Skip(new Random().Next(ads.Count() - 1)).Take(1);
+            if(!ads.Any())
+                return;
+            var ad = ads.Skip(new Random().Next(ads.Count() - 1)).FirstOrDefault();
+            ad.Appears++;
+            _context.Advertisements.Update(ad);
+            _context.SaveChanges();
+            ViewData["Ad"] = ad;
         }
 
         private void BuildCategoryTree(IQueryable<Product> products)
