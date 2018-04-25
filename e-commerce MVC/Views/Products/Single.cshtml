@@ -56,18 +56,10 @@
                 <h3>@Model.Name</h3>
                 <h4><span class="item_price">@Model.Price.ToString("C")</span></h4>
                 @{
-                    double count = Model.Reviews.Count;
-                    var total = Model.Reviews.Aggregate(0, (res, rev) => res + rev.Rating);
-                    var result = (int)Math.Round(total / count);
-                    <div class="rating1">
-                        <span class="starRating">
-                            @for (var i = 1; i < 6; i++)
-                            {
-                                <input id="rating@i" type="radio" name="rating" value="@i" @(i==result ? "checked" : "")/>
-                                <label for="rating@i">@i</label>
-                            }
-                        </span>
-                    </div>
+        double count = Model.Reviews.Count;
+        var total = Model.Reviews.Aggregate(0, (res, rev) => res + rev.Rating);
+        var result = (int)Math.Round(total / count);
+                    @Html.Partial("Ratings", result)
                 }
                 <div class="description">
                     <h5><i>Description</i></h5>
@@ -75,8 +67,18 @@
                         @Model.ShortDescription
                     </p>
                 </div>
-                <div class="occasion-cart">
-                    <a asp-controller="Cart" asp-action="AddToCart" asp-route-id="@Model.Id" asp-route-quantity="1" class="item_add" data-id="@Model.Id">Add to cart </a>
+
+                <div class="color-quality">
+                    <div class="color-quality-left">
+                        <div class="occasion-cart">
+                            <a asp-controller="Cart" asp-action="AddToCart" asp-route-id="@Model.Id" asp-route-quantity="1" id="addToCart" class="item_add" data-id="@Model.Id">Add to cart </a>
+                        </div>
+                    </div>
+                    <div class="color-quality-right">
+                        <h5>Quantity :</h5>
+                        <input type="number" onchange="var a = $('#addToCart'); a.attr('href', `${a.attr('href').split('=')[0]}=${this.value}`);" value="1" class="frm-field required sect" />
+                    </div>
+                    <div class="clearfix"> </div>
                 </div>
                 <div class="social">
                     <div class="social-left">

@@ -1,0 +1,11 @@
+﻿@model int
+
+<div class="rating">
+    <span class="starRating">
+        @for (var i = 1; i < 6; i++)
+        {
+            <input id="rating@i" type="radio" name="rating" value="@i" @(i == Model ? "checked" : "") />
+            <label for="rating@i">@i</label>
+        }
+    </span>
+</div>

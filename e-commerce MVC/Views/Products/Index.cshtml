@@ -29,121 +29,32 @@
                                 @Html.Partial("CategoryEntryPartialView",category)
                             }
                         }
-                        @*<li><a href="products.html">Best Selling</a> <span>(15)</span></li>
-                        <li><a href="products.html">Man</a> <span>(16)</span></li>
-                        <ul>
-                            <li><a href="products.html">Accessories</a> <span>(2)</span></li>
-                            <li><a href="products.html">Coats & Jackets</a> <span>(5)</span></li>
-                            <li><a href="products.html">Jeans</a> <span>(1)</span></li>
-                            <li><a href="products.html">New Arrivals</a> <span>(0)</span></li>
-                            <li><a href="products.html">Suits</a> <span>(1)</span></li>
-                            <li><a href="products.html">Casual Shirts</a> <span>(0)</span></li>
                         </ul>
-                        <li><a href="products.html">Sales</a> <span>(15)</span></li>
-                        <li><a href="products.html">Woman</a> <span>(15)</span></li>
-                        <ul>
-                            <li><a href="products.html">Accessories</a> <span>(2)</span></li>
-                            <li><a href="products.html">New Arrivals</a> <span>(0)</span></li>
-                            <li><a href="products.html">Dresses</a> <span>(1)</span></li>
-                            <li><a href="products.html">Casual Shirts</a> <span>(0)</span></li>
-                            <li><a href="products.html">Shorts</a> <span>(4)</span></li>
-                        </ul>*@
-                    </ul>
                 </div>
             </div>
             <div class="new-products animated  slideInUp">
                 <h3>New Products</h3>
                 <div class="new-products-grids">
-                    <div class="new-products-grid">
-                        <div class="new-products-grid-left">
-                            <a href="single.html"><img src="/images/6.jpg" alt=" " class="img-responsive" /></a>
-                        </div>
-                        <div class="new-products-grid-right">
-                            <h4><a href="single.html">occaecat cupidatat</a></h4>
-                            <div class="rating">
-                                <div class="rating-left">
-                                    <img src="/images/2.png" alt=" " class="img-responsive">
-                                </div>
-                                <div class="rating-left">
-                                    <img src="/images/2.png" alt=" " class="img-responsive">
-                                </div>
-                                <div class="rating-left">
-                                    <img src="/images/2.png" alt=" " class="img-responsive">
-                                </div>
-                                <div class="rating-left">
-                                    <img src="/images/1.png" alt=" " class="img-responsive">
-                                </div>
-                                <div class="rating-left">
-                                    <img src="/images/1.png" alt=" " class="img-responsive">
-                                </div>
-                                <div class="clearfix"> </div>
+                    @foreach (var product in ViewData["NewProducts"] as List<Product> ?? new List<Product>())
+                    {
+                        <div class="new-products-grid">
+                            <div class="new-products-grid-left">
+                                <a asp-controller="Products" asp-action="Single" asp-route-id="@product.Id">
+                                    <img src="@product.Images.FirstOrDefault()?.Url" alt=" " class="img-responsive"/>
+                                </a>
                             </div>
-                            <div class="simpleCart_shelfItem new-products-grid-right-add-cart">
-                                <p> <span class="item_price">$180</span><a class="item_add" href="#">add to cart </a></p>
+                            <div class="new-products-grid-right">
+                                <h4><a href="single.html">@product.Name</a></h4>
+                                <div class="simpleCart_shelfItem new-products-grid-right-add-cart">
+                                    <p>
+                                        <span class="item_price">@product.Price.ToString("C")</span>
+                                        <a asp-controller="Cart" asp-action="AddToCart" asp-route-id="@product.Id" asp-route-quantity="1" class="item_add">add to cart</a>
+                                    </p>
+                                </div>
                             </div>
+                            <div class="clearfix"> </div>
                         </div>
-                        <div class="clearfix"> </div>
-                    </div>
-                    <div class="new-products-grid">
-                        <div class="new-products-grid-left">
-                            <a href="single.html"><img src="/images/26.jpg" alt=" " class="img-responsive" /></a>
-                        </div>
-                        <div class="new-products-grid-right">
-                            <h4><a href="single.html">eum fugiat quo</a></h4>
-                            <div class="rating">
-                                <div class="rating-left">
-                                    <img src="/images/2.png" alt=" " class="img-responsive">
-                                </div>
-                                <div class="rating-left">
-                                    <img src="/images/2.png" alt=" " class="img-responsive">
-                                </div>
-                                <div class="rating-left">
-                                    <img src="/images/2.png" alt=" " class="img-responsive">
-                                </div>
-                                <div class="rating-left">
-                                    <img src="/images/1.png" alt=" " class="img-responsive">
-                                </div>
-                                <div class="rating-left">
-                                    <img src="/images/1.png" alt=" " class="img-responsive">
-                                </div>
-                                <div class="clearfix"> </div>
-                            </div>
-                            <div class="simpleCart_shelfItem new-products-grid-right-add-cart">
-                                <p> <span class="item_price">$250</span><a class="item_add" href="#">add to cart </a></p>
-                            </div>
-                        </div>
-                        <div class="clearfix"> </div>
-                    </div>
-                    <div class="new-products-grid">
-                        <div class="new-products-grid-left">
-                            <a href="single.html"><img src="/images/11.jpg" alt=" " class="img-responsive" /></a>
-                        </div>
-                        <div class="new-products-grid-right">
-                            <h4><a href="single.html">officia deserunt</a></h4>
-                            <div class="rating">
-                                <div class="rating-left">
-                                    <img src="/images/2.png" alt=" " class="img-responsive">
-                                </div>
-                                <div class="rating-left">
-                                    <img src="/images/2.png" alt=" " class="img-responsive">
-                                </div>
-                                <div class="rating-left">
-                                    <img src="/images/2.png" alt=" " class="img-responsive">
-                                </div>
-                                <div class="rating-left">
-                                    <img src="/images/1.png" alt=" " class="img-responsive">
-                                </div>
-                                <div class="rating-left">
-                                    <img src="/images/1.png" alt=" " class="img-responsive">
-                                </div>
-                                <div class="clearfix"> </div>
-                            </div>
-                            <div class="simpleCart_shelfItem new-products-grid-right-add-cart">
-                                <p> <span class="item_price">$259</span><a class="item_add" href="#">add to cart </a></p>
-                            </div>
-                        </div>
-                        <div class="clearfix"> </div>
-                    </div>
+                    }
                 </div>
             </div>
             @{

@@ -43,7 +43,8 @@ namespace ECommerce.Controllers
                 _context.SaveChanges();
             }
 
-            Response.Cookies.Append("Count", _context.ShopCarts.Count(c => c.Id==uid).ToString());
+            Response.Cookies.Append("Count", _context.ShopCarts.Where(c=>c.Id==uid).Sum(c=> c.Quantity).ToString());
+            var s = _context.ShopCarts.Where(c => c.Id == uid).Sum(c => c.Quantity);
             return Redirect(Request.Headers["Referer"].ToString());
         }
 
