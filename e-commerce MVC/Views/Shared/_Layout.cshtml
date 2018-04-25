@@ -88,7 +88,6 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
                                 <!-- Mega Menu -->
                                 @foreach (var primaryCategory in Database.Categories.ToLookup(o => o.Parent)[null])
                                 {
-                                    // todo: this is experimental, should validate.
                                     <li class="dropdown">
                                         <a asp-controller="Products" asp-action="Index" asp-route-category="@primaryCategory.Id" class="dropdown-toggle" data-toggle="dropdown">@primaryCategory.Name <b class="caret"></b></a>
                                         <ul class="dropdown-menu multi-column columns-3">
@@ -109,84 +108,11 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
                                                         }
                                                     </div>
                                                 }
-                                                <div class="col-sm-4">
-                                                    <ul class="multi-column-dropdown">
-                                                        <h6>Men's Wear</h6>
-                                                        <li>
-                                                            <a href="@Url.Action("Index", "Products")#category=1">Clothing</a>
-                                                        </li>
-                                                        <li><a href="@Url.Action("Index", "Products")#category=2">Wallets</a></li>
-                                                        <li><a href="@Url.Action("Index", "Products")#category=3">Shoes</a></li>
-                                                        <li><a href="@Url.Action("Index", "Products")#category=4">Watches</a></li>
-                                                        <li><a href="@Url.Action("Index", "Products")#category=5">Accessories</a></li>
-                                                    </ul>
-                                                </div>
-                                                @*<div class="col-sm-4">
-                                                        <ul class="multi-column-dropdown">
-                                                            <h6>Women's Wear</h6>
-                                                            <li><a href="products.html">Clothing</a></li>
-                                                            <li><a href="products.html">Wallets,Bags</a></li>
-                                                            <li><a href="products.html">Footwear</a></li>
-                                                            <li><a href="products.html">Watches</a></li>
-                                                            <li><a href="products.html">Accessories</a></li>
-                                                            <li><a href="products.html">Jewellery</a></li>
-                                                            <li><a href="products.html">Beauty & Grooming</a></li>
-                                                        </ul>
-                                                    </div>
-                                                    <div class="col-sm-4">
-                                                        <ul class="multi-column-dropdown">
-                                                            <h6>Kid's Wear</h6>
-                                                            <li><a href="products.html">Kids Home Fashion</a></li>
-                                                            <li><a href="products.html">Boy's Clothing</a></li>
-                                                            <li><a href="products.html">Girl's Clothing</a></li>
-                                                            <li><a href="products.html">Shoes</a></li>
-                                                            <li><a href="products.html">Brand Stores</a></li>
-                                                        </ul>
-                                                    </div>*@
                                                 <div class="clearfix"></div>
                                             </div>
                                         </ul>
                                     </li>
                                 }
-                                @*<li class="dropdown">
-                                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">Furniture <b class="caret"></b></a>
-                                        <ul class="dropdown-menu multi-column columns-3">
-                                            <div class="row">
-                                                <div class="col-sm-4">
-                                                    <ul class="multi-column-dropdown">
-                                                        <h6>Home Collection</h6>
-                                                        <li><a href="furniture.html">Cookware</a></li>
-                                                        <li><a href="furniture.html">Sofas</a></li>
-                                                        <li><a href="furniture.html">Dining Tables</a></li>
-                                                        <li><a href="furniture.html">Shoe Racks</a></li>
-                                                        <li><a href="furniture.html">Home Decor</a></li>
-                                                    </ul>
-                                                </div>
-                                                <div class="col-sm-4">
-                                                    <ul class="multi-column-dropdown">
-                                                        <h6>Office Collection</h6>
-                                                        <li><a href="furniture.html">Carpets</a></li>
-                                                        <li><a href="furniture.html">Tables</a></li>
-                                                        <li><a href="furniture.html">Sofas</a></li>
-                                                        <li><a href="furniture.html">Shoe Racks</a></li>
-                                                        <li><a href="furniture.html">Sockets</a></li>
-                                                        <li><a href="furniture.html">Electrical Machines</a></li>
-                                                    </ul>
-                                                </div>
-                                                <div class="col-sm-4">
-                                                    <ul class="multi-column-dropdown">
-                                                        <h6>Decorations</h6>
-                                                        <li><a href="furniture.html">Toys</a></li>
-                                                        <li><a href="furniture.html">Wall Clock</a></li>
-                                                        <li><a href="furniture.html">Lighting</a></li>
-                                                        <li><a href="furniture.html">Top Brands</a></li>
-                                                    </ul>
-                                                </div>
-                                                <div class="clearfix"></div>
-                                            </div>
-                                        </ul>
-                                    </li>*@
-                                @*<li><a href="short-codes.html">Short Codes</a></li>*@
                                 <li><a asp-controller="Home" asp-action="Contact">Mail Us</a></li>
                             </ul>
                         </div>
@@ -212,7 +138,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
                 </div>
                 <div class="header-right">
                     <div class="cart box_1">
-                        <a href="checkout.html">
+                        <a asp-controller="Cart" asp-action="Checkout">
                             <h3>
                                 <div class="total">
                                     <span class="simpleCart_total"></span> (<span id="simpleCart_quantity" class="simpleCart_quantity">@(Context.Request.Cookies["Count"] ?? "0")</span> items)
@@ -220,7 +146,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
                                 <img src="/images/bag.png" alt="" />
                             </h3>
                         </a>
-                        <p><a href="javascript:;" class="simpleCart_empty">Empty Cart</a></p>
+                        <p><a asp-controller="Cart" asp-action="ClearCart" class="simpleCart_empty">Empty Cart</a></p>
                         <div class="clearfix"> </div>
                     </div>
                 </div>
