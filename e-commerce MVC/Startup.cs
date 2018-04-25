@@ -146,7 +146,8 @@ namespace ECommerce
                     Name = $"Category: {category.Name}",
                     Price = 5.3d,
                     UserId = uid,
-                    SoldCount = 0
+                    SoldCount = 0,
+                    Images = new List<Image> { new Image { Url = "/images/1.jpg"} }
                 };
                 products.Add(product);
                 return products;
