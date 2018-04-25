@@ -60,7 +60,7 @@ namespace ECommerce.Controllers
             ViewData["orderBy"] = orderBy;
 
             BuildCategoryTree(result);
-            result = result.Skip(page * perPage).Take(perPage);
+            result = result.Skip(page * perPage).Take(perPage).Include(p => p.Images);
             SetAd(category);
             ViewData["NewProducts"] =
                 _context.Products.OrderByDescending(p => p.Id).Include(p => p.Images).Take(3).ToList();

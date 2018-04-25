@@ -61,7 +61,7 @@
                 if (ViewData["Ad"] is Advertisement ad)
                 {
                     <div class="men-position animated  slideInUp" SpecialOffer>
-                        <a href="@ad.Url"><img src="/images/Ads/@ad.Id" alt=" " class="img-responsive" /></a>
+                        <a href="@ad.Url"><img src="@ad.Id" alt=" " class="img-responsive" /></a>
                         <div class="men-position-pos">
                             <h4>@ad.Caption</h4>
                         </div>
@@ -114,7 +114,7 @@
                                 <div class="new-collections-grid1 products-right-grid1 animated slideInUp product-holder" data-id="@product.Id">
                                     <div class="new-collections-grid1-image">
                                         <a asp-controller="Products" asp-action="Single" asp-route-id="@product.Id">
-                                            <img src="/images/products/@(product.Id).jpg" alt=" " class="img-responsive">
+                                            <img src="@product.Images.FirstOrDefault()?.Url" alt=" " class="img-responsive">
                                         </a>
                                         <div class="new-collections-grid1-image-pos products-right-grids-pos">
                                             <a asp-controller="Products" asp-action="Single" asp-route-id="@product.Id">
