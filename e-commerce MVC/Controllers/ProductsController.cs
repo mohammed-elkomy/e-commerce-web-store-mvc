@@ -5,6 +5,7 @@ using ECommerce.Models;
 using ECommerce.Models.NewDb;
 using ECommerce.Models.ViewModels;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 
 namespace ECommerce.Controllers
 {
@@ -61,6 +62,8 @@ namespace ECommerce.Controllers
             BuildCategoryTree(result);
             result = result.Skip(page * perPage).Take(perPage);
             SetAd(category);
+            ViewData["NewProducts"] =
+                _context.Products.OrderByDescending(p => p.Id).Include(p => p.Images).Take(3).ToList();
             return View(result);
         }
 
