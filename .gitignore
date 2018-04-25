@@ -261,4 +261,4 @@ __pycache__/
 *.pyc
 
 # appsettings is per machine
-e-commerce MVC/appsettings.json
+**/appsettings.json
