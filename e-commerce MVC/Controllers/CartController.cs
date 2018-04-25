@@ -19,7 +19,7 @@ namespace ECommerce.Controllers
         public RedirectResult AddToCart(int id, int quantity)
         {
             string uid = GetUid();
-            var cartEntry = _context.ShopCarts.Find(new { Id = uid, ProductId = id });
+            var cartEntry = _context.ShopCarts.Find(uid, id);
             if (cartEntry == null)
             {
                 if (quantity > 0)
