@@ -25,7 +25,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
     <script src="/js/jquery.min.js"></script>
     <!-- //js -->
     <!-- cart -->
-    <script src="/js/simpleCart.min.js"></script>
+@*    <script src="/js/simpleCart.min.js"></script>*@
     <!-- cart -->
     <!-- for bootstrap working -->
     <script type="text/javascript" src="/js/bootstrap-3.1.1.min.js"></script>
@@ -141,7 +141,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
                         <a asp-controller="Cart" asp-action="Checkout">
                             <h3>
                                 <div class="total">
-                                    <span class="simpleCart_total"></span> (<span id="simpleCart_quantity" class="simpleCart_quantity">@(Context.Request.Cookies["Count"] ?? "0")</span> items)
+                                    <span class="simpleCart_total"></span> (<span class="simpleCart_quantity">@(Context.Request.Cookies["Count"] ?? "0")</span> items)
                                 </div>
                                 <img src="/images/bag.png" alt="" />
                             </h3>
