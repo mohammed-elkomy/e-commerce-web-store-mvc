@@ -104,8 +104,8 @@ namespace ECommerce.Controllers
                     var child = BuildSubTree(category.Id);
                     result.Children.Add(child);
                     result.Count += child.Count;
+                    child.Name = category.Name;
                 }
-
                 result.Count += products.Count(p => p.CategoryId == key);
                 return result;
             }
