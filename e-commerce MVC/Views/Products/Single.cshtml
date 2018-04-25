@@ -59,15 +59,7 @@
         double count = Model.Reviews.Count;
         var total = Model.Reviews.Aggregate(0, (res, rev) => res + rev.Rating);
         var result = (int)Math.Round(total / count);
-            <div class="rating1">
-                <span class="starRating">
-                    @for (var i = 1; i < 6; i++)
-        {
-            <input id="rating@i" type="radio" name="rating" value="@i" @(i == result ? "checked" : "") />
-            <label for="rating@i">@i</label>
-}
-                </span>
-            </div>
+                    @Html.Partial("Ratings", result)
                 }
                 <div class="description">
                     <h5><i>Description</i></h5>
