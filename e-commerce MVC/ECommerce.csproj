@@ -27,7 +27,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="private_storage\userImages\" />
     <Folder Include="wwwroot\ProductsImages\" />
     <Folder Include="wwwroot\usersImages\" />
   </ItemGroup>

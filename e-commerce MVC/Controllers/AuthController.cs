@@ -1,4 +1,5 @@
-﻿using System.Linq;
+﻿using System;
+using System.Linq;
 using System.Threading.Tasks;
 using ECommerce.Models.NewDb;
 using ECommerce.Models.ViewModels;
@@ -38,22 +39,24 @@ namespace ECommerce.Controllers
             return View();
         }
         [HttpPost]
-        public async Task<IActionResult> Login(LoginViewModel model,string returnUrl)
+        public async Task<IActionResult> Login(LoginViewModel model, string returnUrl)
         {
             if (ModelState.IsValid)
             {
                 var result =
                     await _signInManager.PasswordSignInAsync(model.UserName, model.Password, model.RememberMe, false);
-                if (result.Succeeded) {
+                if (result.Succeeded)
+                {
 
                     var CurrentUser = _context.Users.Where(user => user.UserName == model.UserName).First();
                     var retString = (CurrentUser.Firstname + " " + CurrentUser.Lastname);
-                    Response.Cookies.Append("user name ui", retString.Substring(0, System.Math.Min(retString.Length,10)));
+                    Response.Cookies.Append("user name ui", retString.Substring(0, System.Math.Min(retString.Length, 10)), new CookieOptions { Expires = DateTime.Now.AddYears(1000) });
 
-                    return RedirectToLocal(returnUrl); }
+                    return RedirectToLocal(returnUrl);
+                }
                 ModelState.AddModelError(string.Empty, "Wrong username/password combination.");
             }
-            
+
             return View();
         }
 
@@ -70,7 +73,7 @@ namespace ECommerce.Controllers
             {
                 if (!model.ToSAgreed)
                 {
-                    ModelState.AddModelError(nameof(model.ToSAgreed),"Must agree to Terms and conditions");
+                    ModelState.AddModelError(nameof(model.ToSAgreed), "Must agree to Terms and conditions");
                     return View();
                 }
                 var user = new User
@@ -90,14 +93,14 @@ namespace ECommerce.Controllers
                             await image.CopyToAsync(stream);
 
                     ViewData["Success"] = "Registered Successfully";
-                    return RedirectToAction(nameof(Login), new {returnUrl});
+                    return RedirectToAction(nameof(Login), new { returnUrl });
                 }
 
                 foreach (var error in result.Errors)
                     ModelState.AddModelError(string.Empty, error.Description);
                 return View();
             }
-            
+
             ModelState.AddModelError(string.Empty, "Invalid model.");
             return View();
         }
@@ -123,21 +126,44 @@ namespace ECommerce.Controllers
         }
 
 
-    
+
         [HttpGet]
         [Authorize]
-        public IActionResult EditProfile(string returnUrl)
+        public async Task<IActionResult> EditProfile(string returnUrl)
         {
             ViewData["ReturnUrl"] = returnUrl;
-            return View();
+
+            ProfileViewModel ViewModel = await getProfileViewModel();
+
+            return View(ViewModel);
         }
 
+        private async Task<ProfileViewModel> getProfileViewModel()
+        {
+            var user = await _userManager.GetUserAsync(HttpContext.User);
+
+            byte[] bytes = await System.IO.File.ReadAllBytesAsync($"./private_storage/userImages/{user.Id}.jpg");
+
+            var ViewModel = new ProfileViewModel
+            {
+                Email = user.Email,
+                Firstname = user.Firstname,
+                Lastname = user.Lastname,
+                Phone = user.Phone,
+                ImageBase64 = "data:image/png;base64," + Convert.ToBase64String(bytes)
+            };
+            return ViewModel;
+        }
 
         [HttpGet]
         [Authorize]
-        public IActionResult Profile()
+        public async Task<IActionResult> Profile(string returnUrl)
         {
-            return View();
+            ViewData["ReturnUrl"] = returnUrl;
+
+            ProfileViewModel ViewModel = await getProfileViewModel();
+
+            return View(ViewModel);
         }
     }
 }

@@ -65,7 +65,6 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 
                         @if (SignInManager.IsSignedIn(User))
                         {
-                            @*<li><i class="glyphicon glyphicon-envelope" aria-hidden="true"></i><a href="mailto:info@example.com">info@@example.com</a></li>*@
                             <li><i class="glyphicon glyphicon-user" aria-hidden="true"></i><a asp-controller="Auth" asp-action="Profile">@HttpContextAccessor.HttpContext.Request.Cookies["user name ui"]</a></li>
                             <li><i class="glyphicon glyphicon-log-out" aria-hidden="true"></i><a asp-controller="Auth" asp-action="Logout">Logout</a></li>
                         }
@@ -203,9 +202,8 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
                 <div class="col-md-3 footer-grid animated wow slideInLeft" data-wow-delay=".5s">
                     <h3>About Us</h3>
                     <p>
-                        Duis aute irure dolor in reprehenderit in voluptate velit esse.<span>
-                            Excepteur sint occaecat cupidatat
-                            non proident, sunt in culpa qui officia deserunt mollit.
+                        Welcome to the most useless thing in the entire universe.<span>
+                            Welcome to the most useless thing in the entire universe.
                         </span>
                     </p>
                 </div>

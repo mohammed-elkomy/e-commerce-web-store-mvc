@@ -1,18 +1,27 @@
-﻿@model ECommerce.Models.NewDb.Message
+﻿@using ECommerce.Models.ViewModels
+@model ProfileViewModel
 
 <div class="login">
     <div class="container animated wow slideInUp">
         <h3>Profile</h3>
         <p class="est animated wow zoomIn" data-wow-delay=".5s">Welcome to the most useless thing in the entire universe.</p>
         <br />
-        <div class="profile-grid">
-            <img src="/images/4.png" alt=" " class="img-responsive" />
-            <h4>Rita Williumson <!--<span>Manager</span>--></h4>
-            <ul class="phone-mail">
-                <li><i class="glyphicon glyphicon-earphone" aria-hidden="true"></i>Phone: +1234 567 893</li>
-                <li><i class="glyphicon glyphicon-envelope" aria-hidden="true"></i>Email: <a href="mailto:info@example.com">info@example.com</a></li>
+        
+        <div class="profile-grid col-lg-8 col-lg-offset-2">
 
+            <img src="@Model.ImageBase64" alt=" " class="img-responsive" style="height:150px ;width:150px" />
+            <h4>@Model.Firstname +" "+ @Model.Lastname  <!--<span>Manager</span>--></h4>
+            <ul class="phone-mail">
+                <li><i class="glyphicon glyphicon-earphone" aria-hidden="true"></i>Phone: @Model.Phone</li>
+                <li><i class="glyphicon glyphicon-envelope" aria-hidden="true"></i>Email: @Model.Email</li>
+
+                <li></li>
+                <li style="float:right"><a asp-controller="Auth" asp-action="EditProfile" style="border: 2px;border-color: #ffebeb;border-style: solid;padding: 5px 3px 5px 10px;">
+                    <i class="glyphicon glyphicon-edit" aria-hidden="true"></i>Edit Profile</a></li>
             </ul>
+
+          
+           
         </div>
     </div>
 </div>

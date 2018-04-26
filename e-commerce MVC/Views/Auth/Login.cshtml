@@ -12,15 +12,37 @@
         }
         <div class="login-form-grids animated wow slideInUp" data-wow-delay=".5s">
             <form id="login_form" novalidate asp-controller="Auth" asp-action="Login" asp-route-returnUrl="@ViewData["ReturnUrl"]" method="post">
-            @if (!ViewData.ModelState.IsValid)
-            {
-                <div class="alert alert-danger" role="alert" id="error_message_up" asp-validation-summary="All">
+
+                @{ var hidden = "hidden"; }
+
+                @if(!ViewData.ModelState.IsValid)
+                {
+                    hidden = "";
+                }
+
+                <div class="alert alert-danger" role="alert" id="error_message" @hidden>
+                    @if (!ViewData.ModelState.IsValid)
+                    {
+                        @foreach (var modelState in ViewData.ModelState.Values)
+                        {
+                            @if (modelState.Errors.Count > 0 && !modelState.Errors[0].ErrorMessage.Equals("Invalid model."))
+                            {
+
+                                @foreach (var error in modelState.Errors)
+                                {
+                                    @error.ErrorMessage <br />
+                                }
+                            }
+
+                        }
+                    }
                 </div>
-            }
+
+
                 <input placeholder="UserName" id="login_email" asp-for="UserName">
                 <input type="password" placeholder="Password" id="login_password" asp-for="Password">
                 <div>
-                    @Html.EditorFor(o => o.RememberMe) <small>Remember me?</small>
+                    @Html.EditorFor(loginViewModelObject => loginViewModelObject.RememberMe) <small>Remember me?</small>
                 </div>
                 <div class="forgot">
                     <a asp-action="ForgotMyPassword">Forgot Password?</a>
@@ -34,3 +56,6 @@
     </div>
 </div>
 <!-- //login -->
+
+<script src="/js/komy/common.js"></script>
+<script src="/js/komy/login.js"></script>
