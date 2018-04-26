@@ -15,16 +15,26 @@ namespace ECommerce.Models.NewDb
 
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public override int Id { get; set; }
-        [Required]
+
         public string Firstname { get; set; }
-        [Required]
+
+       
         public string Lastname { get; set; }
-        [Required]
+
+        
         public override string Email { get; set; }
-        [Required]
+
         public bool NewsSubscription { get; set; }
+
+        
         public string Phone { get; set; }
+
+        [Required(ErrorMessage = "Address is Required")]
+        [StringLength(50, ErrorMessage = "Exceeded the length for address")]
         public string Address { get; set; }
+
+        [Required(ErrorMessage = "Zip Code is Required")]
+        [StringLength(10, ErrorMessage = "Exceeded the length for zipcode")]
         public string Zipcode { get; set; }
 
 

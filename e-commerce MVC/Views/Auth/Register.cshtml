@@ -7,15 +7,30 @@
         <form class="login-form-grids" id="register_form" enctype="multipart/form-data" novalidate asp-controller="Auth" asp-action="Register" asp-route-returnUrl="@ViewData["ReturnUrl"]" method="post">
             <h5 class="animated wow slideInUp" data-wow-delay=".5s">profile information</h5>
             @if (!ViewData.ModelState.IsValid)
-    {
-        <div class="alert alert-danger" role="alert" id="error_message_up" asp-validation-summary="All">
-        </div>
-}
+            {
+
+                <div class="alert alert-danger" role="alert" id="error_message_up" @*asp-validation-summary="All" *@ style="padding-left:25px">
+
+
+                    @foreach (var modelState in ViewData.ModelState.Values)
+                    {
+                        @if (modelState.Errors.Count > 0 && !modelState.Errors[0].ErrorMessage.Equals("Invalid model."))
+                        {
+                          
+                            @foreach (var error in modelState.Errors)
+                            {
+                                @error.ErrorMessage <br />
+                            }
+                        }
+
+                    }
+                </div>
+            }
             <div class="animated wow slideInUp" data-wow-delay=".5s">
                 <input type="text" placeholder="First Name..." id="reg_first" asp-for="FirstName">
                 <input type="text" placeholder="Last Name..." id="reg_last" asp-for="LastName">
                 <input type="text" placeholder="Mobile Number..." id="reg_mobile" asp-for="PhoneNumber" style="background: url('/images/img-sp.png')no-repeat 5px -329px  #fff">
-                
+
             </div>
 
             <div class="register-check-box animated wow slideInUp" data-wow-delay=".5s">

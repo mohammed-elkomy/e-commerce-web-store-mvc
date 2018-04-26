@@ -1,0 +1,109 @@
+﻿@model ECommerce.Models.NewDb.Message
+<!-- mail -->
+@*<div class="mail animated wow zoomIn" data-wow-delay=".5s">
+    <div class="container">
+        <h3>Mail Us</h3>
+        <p class="est animated wow zoomIn" data-wow-delay=".5s">Welcome to the most useless thing in the entire universe.</p>
+        <div class="mail-grids">
+
+
+            <div class=" mail-grid-left animated wow slideInLeft" data-wow-delay=".5s">
+                @if (!ViewContext.ModelState.IsValid)
+                {
+                <div class="alert alert-danger" role="alert" id="error_message" asp-validation-summary="All">
+                </div>
+                }
+                @if (ViewData["success"]?.ToString() == "success")
+                {
+                <div class="success alert-success">
+                    Your message was submitted successfully.
+                </div>
+                }
+                <form asp-controller="Home" asp-action="Contact" method="post" novalidate>
+                    <input type="text" asp-for="Name" placeholder="Name">
+                    <input type="email" asp-for="Email" placeholder="Email">
+                    <input type="text" asp-for="Subject" placeholder="Subject">
+                    <textarea placeholder="Message..." type="text" asp-for="Content"></textarea>
+                    <input type="submit" value="Submit Now">
+                </form>
+            </div>
+
+            <div class="clearfix"> </div>
+        </div>
+        <iframe class="animated wow slideInLeft" data-wow-delay=".5s" src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3098.7638135888296!2d-77.47669308468912!3d39.04350424592369!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x89b63eb3bc8da92b%3A0x78c8e09ab1cabc90!2sShopping+Plaza%2C+Ashburn%2C+VA+20147%2C+USA!5e0!3m2!1sen!2sin!4v1457602090579" frameborder="0" style="border:0" allowfullscreen></iframe>
+    </div>
+</div>*@
+<!-- mail -->
+<div class="mail animated wow zoomIn" data-wow-delay=".5s">
+    <div class="container">
+        <h3>Profile</h3>
+        <p class="est animated wow zoomIn" data-wow-delay=".5s">Welcome to the most useless thing in the entire universe.</p>
+        <div class="mail-grids">
+            <div class="col-md-8 mail-grid-left animated wow slideInLeft" data-wow-delay=".5s">
+                <form id="editForm" novalidate>
+                    <div class="alert alert-danger" role="alert" id="error_message" hidden>
+                        <strong>Oh snap!</strong> Check Your Input.
+                    </div>
+
+                    <div>
+                        <input type="text" placeholder="First Name..." id="reg_first" onfocus="this.placeholder = '';" onblur="if (this.placeholder === '') {this.placeholder = 'First Name...';}">
+                        <input type="email" placeholder="Last Name..." id="reg_last" onfocus="this.placeholder = '';" onblur="if (this.placeholder === '') {this.placeholder = 'Last Name...';}">
+                        <input type="text" placeholder="Email Address..." id="reg_email" onfocus="this.placeholder = '';" onblur="if (this.placeholder === '') {this.placeholder = 'Email Address...';}">
+                        <input type="email" placeholder="Mobile Number..." id="reg_mobile" onfocus="this.placeholder = '';" onblur="if (this.placeholder === '') {this.placeholder = 'Mobile Number...';}">
+
+                        <div id="usertags"></div>
+                        @*<script>
+                                    $(function(){
+                                        $("#usertags").tags({
+                                            tagSize: "sm",
+                                            suggestions: ["alpha", "bravo", "charlie", "delta", "echo", "foxtrot", "golf", "hotel", "india"],
+                                            tagData: ["juliett", "kilo"],
+                                            tagClass:"btn-warning",
+                                            afterAddingTag: function(tag){
+
+                                              /*  setTimeout(function () {
+                                                    $('.btn-info').css("background-color", "#d8703f");
+                                                },10)*/
+
+                                                console.log(tag);
+                                            },
+                                            beforeDeletingTag:function (tag) {
+                                                console.log(tag);
+                                            }
+                                        });
+/*
+                                        $('.btn-info').css("background-color", "#d8703f");*/
+                                    });
+
+
+                        </script>*@
+                    </div>
+
+                    <br />
+                    <input type="file" name="image" class="form-control" id="imageUpload" style="visibility: hidden;height: 0;width: 0">
+                    <input type="submit" value="Save Changes" style="max-width:150px">
+
+
+                </form>
+
+
+            </div>
+            <div class="col-md-4 mail-grid-right animated wow slideInRight" data-wow-delay=".5s">
+                <div class="mail-grid-right1">
+                    <img src="images/5.png" alt=" " class="img-responsive" id="imageView" />
+                    <span>Upload</span>
+                    <ul class="social-icons">
+                        <li>
+                            <a class="photo" id="imageUploadTrigger"></a>
+                        </li>
+                    </ul>
+
+                </div>
+            </div>
+            <div class="clearfix"></div>
+        </div>
+        <iframe class="animated wow slideInLeft" data-wow-delay=".5s" src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3098.7638135888296!2d-77.47669308468912!3d39.04350424592369!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x89b63eb3bc8da92b%3A0x78c8e09ab1cabc90!2sShopping+Plaza%2C+Ashburn%2C+VA+20147%2C+USA!5e0!3m2!1sen!2sin!4v1457602090579" frameborder="0" style="border:0" allowfullscreen></iframe>
+    </div>
+</div>
+<!-- //mail -->
+<!-- //mail -->

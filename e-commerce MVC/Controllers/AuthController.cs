@@ -1,4 +1,5 @@
-﻿using System.Threading.Tasks;
+﻿using System.Linq;
+using System.Threading.Tasks;
 using ECommerce.Models.NewDb;
 using ECommerce.Models.ViewModels;
 using Microsoft.AspNetCore.Authorization;
@@ -12,11 +13,13 @@ namespace ECommerce.Controllers
     {
         private readonly SignInManager<User> _signInManager;
         private readonly UserManager<User> _userManager;
+        private readonly DataContext _context;
 
-        public AuthController(SignInManager<User> signInManager, UserManager<User> userManager)
+        public AuthController(SignInManager<User> signInManager, UserManager<User> userManager, DataContext context)
         {
             _signInManager = signInManager;
             _userManager = userManager;
+            _context = context;
         }
 
         private IActionResult RedirectToLocal(string returnUrl)
@@ -42,8 +45,10 @@ namespace ECommerce.Controllers
                 var result =
                     await _signInManager.PasswordSignInAsync(model.UserName, model.Password, model.RememberMe, false);
                 if (result.Succeeded) {
-                   
-                    Response.Cookies.Append("UserName", model.UserName);
+
+                    var CurrentUser = _context.Users.Where(user => user.UserName == model.UserName).First();
+                    var retString = (CurrentUser.Firstname + " " + CurrentUser.Lastname);
+                    Response.Cookies.Append("user name ui", retString.Substring(0, System.Math.Min(retString.Length,10)));
 
                     return RedirectToLocal(returnUrl); }
                 ModelState.AddModelError(string.Empty, "Wrong username/password combination.");
@@ -65,7 +70,7 @@ namespace ECommerce.Controllers
             {
                 if (!model.ToSAgreed)
                 {
-                    ModelState.AddModelError(nameof(model.ToSAgreed),"Must agree to ToS");
+                    ModelState.AddModelError(nameof(model.ToSAgreed),"Must agree to Terms and conditions");
                     return View();
                 }
                 var user = new User
@@ -81,7 +86,7 @@ namespace ECommerce.Controllers
                 if (result.Succeeded)
                 {
                     if (image != null && image.Length > 0)
-                        using (var stream = System.IO.File.OpenWrite($"./wwwroot/usersImages/{user.Id}.jpg"))
+                        using (var stream = System.IO.File.OpenWrite($"./private_storage/userImages/{user.Id}.jpg"))
                             await image.CopyToAsync(stream);
 
                     ViewData["Success"] = "Registered Successfully";
@@ -115,6 +120,24 @@ namespace ECommerce.Controllers
         {
             await _signInManager.SignOutAsync();
             return RedirectToAction("Index", "Home");
+        }
+
+
+    
+        [HttpGet]
+        [Authorize]
+        public IActionResult EditProfile(string returnUrl)
+        {
+            ViewData["ReturnUrl"] = returnUrl;
+            return View();
+        }
+
+
+        [HttpGet]
+        [Authorize]
+        public IActionResult Profile()
+        {
+            return View();
         }
     }
 }
