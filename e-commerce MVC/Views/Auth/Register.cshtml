@@ -6,17 +6,21 @@
         <p class="est animated wow zoomIn" data-wow-delay=".5s">Welcome to the most useless thing in the entire universe.</p>
         <form class="login-form-grids" id="register_form" enctype="multipart/form-data" novalidate asp-controller="Auth" asp-action="Register" asp-route-returnUrl="@ViewData["ReturnUrl"]" method="post">
             <h5 class="animated wow slideInUp" data-wow-delay=".5s">profile information</h5>
+            @{ var hidden = "hidden"; }
+
             @if (!ViewData.ModelState.IsValid)
             {
+                hidden = "";
+            }
 
-                <div class="alert alert-danger" role="alert" id="error_message_up" @*asp-validation-summary="All" *@ style="padding-left:25px">
-
-
+            <div class="alert alert-danger" role="alert" id="error_message_up" @hidden>
+                @if (!ViewData.ModelState.IsValid)
+                {
                     @foreach (var modelState in ViewData.ModelState.Values)
                     {
                         @if (modelState.Errors.Count > 0 && !modelState.Errors[0].ErrorMessage.Equals("Invalid model."))
                         {
-                          
+
                             @foreach (var error in modelState.Errors)
                             {
                                 @error.ErrorMessage <br />
@@ -24,8 +28,9 @@
                         }
 
                     }
-                </div>
-            }
+                }
+            </div>
+
             <div class="animated wow slideInUp" data-wow-delay=".5s">
                 <input type="text" placeholder="First Name..." id="reg_first" asp-for="FirstName">
                 <input type="text" placeholder="Last Name..." id="reg_last" asp-for="LastName">
@@ -47,10 +52,14 @@
             </div>
             <h6 class="animated wow slideInUp" data-wow-delay=".5s">Login information</h6>
 
+            <div class="alert alert-danger" role="alert" id="error_message_down" hidden>
+                <strong>Oh snap!</strong> Check Your Input.
+            </div>
+
             <div class="animated wow slideInUp" data-wow-delay=".5s">
 
                 <input type="email" placeholder="Email Address" id="reg_email" asp-for="Email">
-                <input type="text" placeholder="User name" asp-for="UserName">
+                <input type="text" placeholder="User name"  id="reg_username"  asp-for="UserName">
                 <input type="password" placeholder="Password" id="reg_password" asp-for="Password">
                 <input type="password" placeholder="Password Confirmation" id="conf_reg_password" asp-for="ConfirmPassword">
                 <div class="register-check-box">
@@ -65,3 +74,5 @@
     </div>
 </div>
 <!-- //register -->
+<script src="/js/komy/common.js"></script>
+<script src="/js/komy/register.js"></script>

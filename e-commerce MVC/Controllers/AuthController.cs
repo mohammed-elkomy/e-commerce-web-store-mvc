@@ -73,7 +73,7 @@ namespace ECommerce.Controllers
             {
                 if (!model.ToSAgreed)
                 {
-                    ModelState.AddModelError(nameof(model.ToSAgreed), "Must agree to Terms and conditions");
+                    ModelState.AddModelError(nameof(model.ToSAgreed), "Must Agree To Terms and Conditions");
                     return View();
                 }
                 var user = new User
