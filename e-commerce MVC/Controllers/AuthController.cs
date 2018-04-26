@@ -111,8 +111,9 @@ namespace ECommerce.Controllers
             return View();
         }
         [HttpPost]
-        public async Task<IActionResult> ForgotMyPassword(LoginViewModel model)
+        public IActionResult ForgotMyPassword(LoginViewModel model)
         {
+            
             return View();
         }
 
@@ -165,5 +166,6 @@ namespace ECommerce.Controllers
 
             return View(ViewModel);
         }
+
     }
 }

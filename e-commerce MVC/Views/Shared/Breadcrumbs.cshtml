@@ -22,7 +22,7 @@
                     @if (action != "Index")
                     {
                         <li>
-                            @Html.ActionLink(action.Equals("EditProfile") ? "Profile" : action, action, controller)
+                            @Html.ActionLink(action.Equals("EditProfile") ? "Profile" :  (action.Equals("ForgotMyPassword") ? "Reset Password":action), action, controller)
                         </li>
                     }
                 </ol>
