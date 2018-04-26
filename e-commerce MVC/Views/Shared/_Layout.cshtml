@@ -121,7 +121,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
                                         <a asp-controller="Products" asp-action="Index" asp-route-category="@primaryCategory.Id" class="dropdown-toggle" data-toggle="dropdown">@primaryCategory.Name <b class="caret"></b></a>
                                         <ul class="dropdown-menu multi-column columns-3">
                                             <div class="row">
-                                                @foreach (var secondaryCategory in primaryCategory.Children)
+                                                @foreach (var secondaryCategory in primaryCategory.Children) 
                                                 {
                                                     <div class="col-sm-4">
                                                         <h6>
