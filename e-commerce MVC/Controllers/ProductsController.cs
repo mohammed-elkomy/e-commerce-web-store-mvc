@@ -70,7 +70,7 @@ namespace ECommerce.Controllers
 
         public IActionResult Single(int id)
         {
-            var product = _context.Products.Find(id);
+            var product = _context.Products.Include(p=> p.Images).SingleOrDefault(p => p.Id == id);
             if (product == null || product.Id < 1)
             {
                 return RedirectToAction("Index");
