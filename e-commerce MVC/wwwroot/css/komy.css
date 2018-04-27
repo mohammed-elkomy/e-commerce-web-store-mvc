@@ -1,8 +1,9 @@
-.profile-grid{
-    padding:2em;
+.profile-grid {
+    padding: 2em;
     background: #ffcd53;
-    text-align:center;
+    text-align: center;
 }
+
 .profile-grid img {
     margin: 0 auto;
     padding: .5em;
@@ -13,32 +14,40 @@
     -o-border-radius: 100%;
     -ms-border-radius: 100%;
 }
-.profile-grid h4{
-    font-size:1em;
-    color:#212121;
-    margin:1em 0;
-    text-transform:uppercase;
+
+.profile-grid h4 {
+    font-size: 1em;
+    color: #212121;
+    margin: 1em 0;
+    text-transform: uppercase;
 }
-.profile-grid h4 span{
+
+.profile-grid h4 span {
     display: block;
     text-transform: capitalize;
     font-size: .8em;
-    color:#FFFFFF;
+    color: #FFFFFF;
     margin: .5em 0 0;
 }
-.profile-grid ul.phone-mail li{
-    list-style-type:none;
-    margin-bottom:1em;
-    font-size:14px;
-    color:#FFFFFF;
+
+.profile-grid ul.phone-mail li {
+    list-style-type: none;
+    margin-bottom: 1em;
+    font-size: 14px;
+    color: #FFFFFF;
 }
-.profile-grid ul.phone-mail li a{
-    color:#FFFFFF;
-    text-decoration:none;
+
+.profile-grid ul.phone-mail li a {
+    color: #FFFFFF;
+    border-color: #FFFFFF;
+    text-decoration: none;
 }
-.profile-grid ul.phone-mail li a:hover{
-    color:#212121;
+
+.profile-grid ul.phone-mail li a:hover {
+    color: #212121;
+    border-color: #212121;
 }
-.profile-grid ul li i{
-    left:-.5em;
+
+.profile-grid ul li i {
+    left: -.5em;
 }

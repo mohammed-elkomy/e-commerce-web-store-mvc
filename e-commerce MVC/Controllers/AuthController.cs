@@ -1,12 +1,12 @@
-﻿using System;
-using System.Linq;
-using System.Threading.Tasks;
-using ECommerce.Models.NewDb;
+﻿using ECommerce.Models.NewDb;
 using ECommerce.Models.ViewModels;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using System;
+using System.Linq;
+using System.Threading.Tasks;
 
 namespace ECommerce.Controllers
 {
@@ -50,7 +50,7 @@ namespace ECommerce.Controllers
 
                     var CurrentUser = _context.Users.Where(user => user.UserName == model.UserName).First();
                     var retString = (CurrentUser.Firstname + " " + CurrentUser.Lastname);
-                    Response.Cookies.Append("user name ui", retString.Substring(0, System.Math.Min(retString.Length, 10)), new CookieOptions { Expires = DateTime.Now.AddYears(1000) });
+                    Response.Cookies.Append("user name ui", retString.Substring(0, System.Math.Min(retString.Length, 15)), new CookieOptions { Expires = DateTime.Now.AddYears(1000) });
 
                     return RedirectToLocal(returnUrl);
                 }
@@ -66,6 +66,7 @@ namespace ECommerce.Controllers
             ViewData["ReturnUrl"] = returnUrl;
             return View();
         }
+
         [HttpPost]
         public async Task<IActionResult> Register(RegisterViewModel model, IFormFile image, string returnUrl)
         {
@@ -110,10 +111,11 @@ namespace ECommerce.Controllers
         {
             return View();
         }
+
         [HttpPost]
         public IActionResult ForgotMyPassword(LoginViewModel model)
         {
-            
+
             return View();
         }
 
@@ -134,26 +136,40 @@ namespace ECommerce.Controllers
         {
             ViewData["ReturnUrl"] = returnUrl;
 
-            ProfileViewModel ViewModel = await getProfileViewModel();
+            ProfileViewModel ViewModel = await GetProfileViewModel();
 
             return View(ViewModel);
         }
 
-        private async Task<ProfileViewModel> getProfileViewModel()
+        [HttpPost]
+        [Authorize]
+        public async Task<IActionResult> EditProfile(ProfileViewModel model, IFormFile image, string returnUrl) //ProfileViewModel
         {
-            var user = await _userManager.GetUserAsync(HttpContext.User);
+            ViewData["ReturnUrl"] = returnUrl;
 
-            byte[] bytes = await System.IO.File.ReadAllBytesAsync($"./private_storage/userImages/{user.Id}.jpg");
-
-            var ViewModel = new ProfileViewModel
+            if (ModelState.IsValid)
             {
-                Email = user.Email,
-                Firstname = user.Firstname,
-                Lastname = user.Lastname,
-                Phone = user.Phone,
-                ImageBase64 = "data:image/png;base64," + Convert.ToBase64String(bytes)
-            };
-            return ViewModel;
+                var user = await _userManager.GetUserAsync(HttpContext.User);
+
+                if (image != null && image.Length > 0)
+                    using (var stream = System.IO.File.OpenWrite($"./private_storage/userImages/{user.Id}.jpg"))
+                        await image.CopyToAsync(stream);
+
+                var CurrentUser = _context.Users.Where(u => u.Id == user.Id).First();
+                CurrentUser.Firstname = model.Firstname;
+                CurrentUser.Lastname = model.Lastname;
+                CurrentUser.Phone = model.Phone;
+                CurrentUser.Email = model.Email;
+
+                await _context.SaveChangesAsync();
+
+                var retString = (CurrentUser.Firstname + " " + CurrentUser.Lastname);
+                Response.Cookies.Append("user name ui", retString.Substring(0, System.Math.Min(retString.Length, 15)), new CookieOptions { Expires = DateTime.Now.AddYears(1000) });
+
+                return RedirectToAction(nameof(Profile), new { returnUrl });
+            }
+
+            return RedirectToAction(nameof(EditProfile), new { returnUrl });
         }
 
         [HttpGet]
@@ -162,10 +178,32 @@ namespace ECommerce.Controllers
         {
             ViewData["ReturnUrl"] = returnUrl;
 
-            ProfileViewModel ViewModel = await getProfileViewModel();
+            ProfileViewModel ViewModel = await GetProfileViewModel();
 
             return View(ViewModel);
         }
 
+        private async Task<ProfileViewModel> GetProfileViewModel()
+        {
+            var user = await _userManager.GetUserAsync(HttpContext.User);
+            var hasProfileImage = System.IO.File.Exists($"./private_storage/userImages/{user.Id}.jpg");
+
+            byte[] bytes = null;
+            if (hasProfileImage)
+                bytes = await System.IO.File.ReadAllBytesAsync($"./private_storage/userImages/{user.Id}.jpg");
+
+            var ViewModel = new ProfileViewModel
+            {
+                Email = user.Email,
+                Firstname = user.Firstname,
+                Lastname = user.Lastname,
+                Phone = user.Phone,
+                ImageBase64 = hasProfileImage ? "data:image/png;base64," + Convert.ToBase64String(bytes) : "/images/default.png"
+            };
+            return ViewModel;
+        }
+
+
+   
     }
 }
