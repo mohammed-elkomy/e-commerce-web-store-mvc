@@ -2,28 +2,43 @@
 using System.Linq;
 using System.Threading.Tasks;
 using ECommerce.Models.NewDb;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
 namespace ECommerce.Controllers
-{ 
+{
     public class HomeController : Controller
     {
-        public IActionResult Index([FromServices] DataContext dataContext)
+
+        private readonly UserManager<User> _userManager;
+        private readonly DataContext _context;
+
+        public HomeController(UserManager<User> userManager, DataContext context)
         {
-            var result = dataContext.Products
+            _userManager = userManager;
+            _context = context;
+        }
+
+        public IActionResult Index()
+        {
+            var result = _context.Products
                 .OrderByDescending(o => o.SoldCount)
                 .Take(11)
-                .Include(o=> o.Images)
+                .Include(o => o.Images)
                 .ToList();
-            ViewData["LeastSold"] = dataContext.Products.OrderBy(o => o.SoldCount).Include(o=> o.Images).FirstOrDefault();
+            ViewData["LeastSold"] = _context.Products.OrderBy(o => o.SoldCount).Include(o => o.Images).FirstOrDefault();
+
             return View(result);
         }
 
         [HttpGet]
-        public IActionResult Contact()
+        public async Task<IActionResult> Contact()
         {
-            return View();
+            var user = await _userManager.GetUserAsync(HttpContext.User);
+            var CurrentUser = _context.Users.Where(u => u.Id == user.Id).First();
+
+            return View(new Message { Email = CurrentUser.Email, Name = CurrentUser.Firstname+" "+ CurrentUser.Lastname });
         }
 
         [HttpPost]
@@ -34,14 +49,16 @@ namespace ECommerce.Controllers
                 var res = await dbContext.Messages.AddAsync(model);
                 if (res.State == EntityState.Added && dbContext.SaveChanges() > 0)
                 {
+                   
                     ViewData["success"] = "success";
-                    return View();
+                    model.Subject = "";
+                    
+                    return View(model);
                 }
 
                 ModelState.AddModelError(String.Empty, "Couldn't save to DB");
             }
 
-            ModelState.AddModelError(String.Empty, "Invalid Model");
             return View(model);
         }
     }

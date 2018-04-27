@@ -143,7 +143,7 @@ namespace ECommerce.Controllers
 
         [HttpPost]
         [Authorize]
-        public async Task<IActionResult> EditProfile(ProfileViewModel model, IFormFile image, string returnUrl) //ProfileViewModel
+        public async Task<IActionResult> EditProfile(ProfileViewModel model, IFormFile image, string returnUrl) 
         {
             ViewData["ReturnUrl"] = returnUrl;
 
@@ -166,7 +166,7 @@ namespace ECommerce.Controllers
                 var retString = (CurrentUser.Firstname + " " + CurrentUser.Lastname);
                 Response.Cookies.Append("user name ui", retString.Substring(0, System.Math.Min(retString.Length, 15)), new CookieOptions { Expires = DateTime.Now.AddYears(1000) });
 
-                return RedirectToAction(nameof(Profile), new { returnUrl });
+                return RedirectToAction(nameof(Profile), new { returnUrl= returnUrl, success = true });
             }
 
             return RedirectToAction(nameof(EditProfile), new { returnUrl });
@@ -174,12 +174,13 @@ namespace ECommerce.Controllers
 
         [HttpGet]
         [Authorize]
-        public async Task<IActionResult> Profile(string returnUrl)
+        public async Task<IActionResult> Profile(string returnUrl,bool success)
         {
             ViewData["ReturnUrl"] = returnUrl;
 
             ProfileViewModel ViewModel = await GetProfileViewModel();
-
+            if (success)
+                ViewData["success"] = true;
             return View(ViewModel);
         }
 
