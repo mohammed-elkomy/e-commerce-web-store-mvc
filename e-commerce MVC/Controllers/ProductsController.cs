@@ -58,6 +58,7 @@ namespace ECommerce.Controllers
             ViewData["category"] = category;
             ViewData["keywords"] = keywords;
             ViewData["orderBy"] = orderBy;
+            ViewData["totalPages"] = Math.Ceiling((double)result.Count() / perPage);
 
             BuildCategoryTree(result);
             result = result.Skip(page * perPage).Take(perPage).Include(p => p.Images);

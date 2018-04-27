@@ -5,60 +5,64 @@
 
 <div class="products">
     <div class="container">
-        <div class="col-md-4 products-left">
-            <div class="filter-price animated  slideInUp">
-                <h3>Filter By Price</h3>
-                <ul class="dropdown-menu1">
-                    <li>
-                        <a href="">
-                            <div id="slider-range"></div>
-                            <input type="text" id="amount" style="border: 0" />
-                        </a>
-                    </li>
-                </ul>
-                <script type="text/javascript" src="/js/jquery-ui.min.js"></script>
-                <!---->
-            </div>
-            <div class="categories animated  slideInUp">
-                <h3>Categories</h3>
-                <div id="categories">
-                    <ul class="cate">
-                        @{
-                            foreach (var category in (ViewData["CategoryTree"] as CategoryTreeEntry)?.Children)
-                            {
-                                @Html.Partial("CategoryEntryPartialView",category)
+        <form asp-controller="Products" asp-action="Index" id="searchForm">
+            <div class="col-md-4 products-left">
+                <div class="filter-price animated wow slideInUp">
+                    <h3>Filter By Price</h3>
+                    <ul class="dropdown-menu1">
+                        <li>
+                            <a>
+                                <div id="slider-range"></div>
+                                <input type="text" id="amount" style="border: 0" />
+                                <input type="hidden" id="minPrice" name="minPrice" />
+                                <input type="hidden" id="maxPrice" name="maxPrice" />
+                            </a>
+                        </li>
+                    </ul>
+                    <script type="text/javascript" src="/js/jquery-ui.min.js"></script>
+                    <!---->
+                    <script>
+                    </script>
+                </div>
+                <div class="categories animated  slideInUp">
+                    <h3>Categories</h3>
+                    <div id="categories">
+                        <ul class="cate">
+                            @{
+                                foreach (var category in (ViewData["CategoryTree"] as CategoryTreeEntry)?.Children)
+                                {
+                                    @Html.Partial("CategoryEntryPartialView", category)
+                                }
                             }
-                        }
                         </ul>
+                    </div>
                 </div>
-            </div>
-            <div class="new-products animated  slideInUp">
-                <h3>New Products</h3>
-                <div class="new-products-grids">
-                    @foreach (var product in ViewData["NewProducts"] as List<Product> ?? new List<Product>())
-                    {
-                        <div class="new-products-grid">
-                            <div class="new-products-grid-left">
-                                <a asp-controller="Products" asp-action="Single" asp-route-id="@product.Id">
-                                    <img src="@product.Images.FirstOrDefault()?.Url" alt=" " class="img-responsive"/>
-                                </a>
-                            </div>
-                            <div class="new-products-grid-right">
-                                <h4><a href="single.html">@product.Name</a></h4>
-                                <div class="simpleCart_shelfItem new-products-grid-right-add-cart">
-                                    <p>
-                                        <span class="item_price">@product.Price.ToString("C")</span>
-                                        <a asp-controller="Cart" asp-action="AddToCart" asp-route-id="@product.Id" asp-route-quantity="1" class="item_add">add to cart</a>
-                                    </p>
+                <div class="new-products animated  slideInUp">
+                    <h3>New Products</h3>
+                    <div class="new-products-grids">
+                        @foreach (var product in ViewData["NewProducts"] as List<Product> ?? new List<Product>())
+                        {
+                            <div class="new-products-grid">
+                                <div class="new-products-grid-left">
+                                    <a asp-controller="Products" asp-action="Single" asp-route-id="@product.Id">
+                                        <img src="@product.Images.FirstOrDefault()?.Url" alt=" " class="img-responsive" />
+                                    </a>
                                 </div>
+                                <div class="new-products-grid-right">
+                                    <h4><a href="single.html">@product.Name</a></h4>
+                                    <div class="simpleCart_shelfItem new-products-grid-right-add-cart">
+                                        <p>
+                                            <span class="item_price">@product.Price.ToString("C")</span>
+                                            <a asp-controller="Cart" asp-action="AddToCart" asp-route-id="@product.Id" asp-route-quantity="1" class="item_add">add to cart</a>
+                                        </p>
+                                    </div>
+                                </div>
+                                <div class="clearfix"> </div>
                             </div>
-                            <div class="clearfix"> </div>
-                        </div>
-                    }
+                        }
+                    </div>
                 </div>
-            </div>
-            @{
-                if (ViewData["Ad"] is Advertisement ad)
+                @if (ViewData["Ad"] is Advertisement ad)
                 {
                     <div class="men-position animated  slideInUp" SpecialOffer>
                         <a href="@ad.Url"><img src="@ad.Id" alt=" " class="img-responsive" /></a>
@@ -67,118 +71,128 @@
                         </div>
                     </div>
                 }
-            }
-        </div>
-        <div class="col-md-8 products-right">
-            <div class="products-right-grid">
-                <div class="products-right-grids animated  slideInRight">
-                    <div class="sorting">
-                        <button id="btn-search">Search</button>
-                    </div>
-                    <div class="sorting">
-                        <select id="orderBy" class="frm-field required sect">
-                            @foreach (var ord in Enum.GetNames(typeof(OrderBy)))
-                            {
-                                <option value="@Enum.Parse(typeof(OrderBy),ord)">@ord</option>
-                            }
-                        </select>
-                    </div>
-                    <div class="sorting-left">
-                        <select id="perPage" class="frm-field required sect">
-                            <option value="9">Item on page 9</option>
-                            <option value="15">Item on page 15</option>
-                            <option value="21">Item on page 21</option>
-                            <option value="27">Item on page 27</option>
-                            <option value="33">Item on page 33</option>
-                        </select>
-                    </div>
-                    <div class="clearfix"> </div>
-                </div>
-                <div class="products-right-grids-position animated  slideInRight">
-                    <img src="/images/18.jpg" alt=" " class="img-responsive" />
-                    <div class="products-right-grids-position1">
-                        <h4>2016 New Collection</h4>
-                        <p>Temporibus autem quibusdam et aut officiis debitis aut rerum necessitatibus saepe eveniet ut et voluptates repudiandae sint et molestiae non recusandae.</p>
-                    </div>
-                </div>
+
             </div>
-            <div id="searchContent" class="products-right-grids-bottom">
-                @{
-                    var groups = Model.Select((o, i) => (i, o)).GroupBy(o => o.Item1 / 3);
-                    foreach (var group in groups)
-                    {
-                        <div class="col-md-4 products-right-grids-bottom-grid">
-                            @foreach ((int, Product) tuple in group)
-                            {
-                                var product = tuple.Item2;
-                                <div class="new-collections-grid1 products-right-grid1 animated slideInUp product-holder" data-id="@product.Id">
-                                    <div class="new-collections-grid1-image">
-                                        <a asp-controller="Products" asp-action="Single" asp-route-id="@product.Id">
-                                            <img src="@product.Images.FirstOrDefault()?.Url" alt=" " class="img-responsive">
-                                        </a>
-                                        <div class="new-collections-grid1-image-pos products-right-grids-pos">
+            <div class="col-md-8 products-right">
+                <div class="products-right-grid">
+                    <div class="products-right-grids animated  slideInRight">
+                        <div class="sorting">
+                            <button id="btn-search" type="submit">Search</button>
+                        </div>
+                        <div class="sorting">
+                            <select id="orderBy" name="orderBy" class="frm-field required sect">
+                                @foreach (var ord in Enum.GetNames(typeof(OrderBy)))
+                                {
+                                    <option value="@Enum.Parse(typeof(OrderBy), ord)">@ord</option>
+                                }
+                            </select>
+                        </div>
+                        <div class="sorting-left">
+                            <select id="perPage" class="frm-field required sect">
+                                <option value="9">Item on page 9</option>
+                                <option value="15">Item on page 15</option>
+                                <option value="21">Item on page 21</option>
+                                <option value="27">Item on page 27</option>
+                                <option value="33">Item on page 33</option>
+                            </select>
+                        </div>
+                        <div class="clearfix"> </div>
+                    </div>
+                    <div class="products-right-grids-position animated  slideInRight">
+                        <img src="/images/18.jpg" alt=" " class="img-responsive" />
+                        <div class="products-right-grids-position1">
+                            <h4>2016 New Collection</h4>
+                            <p>Temporibus autem quibusdam et aut officiis debitis aut rerum necessitatibus saepe eveniet ut et voluptates repudiandae sint et molestiae non recusandae.</p>
+                        </div>
+                    </div>
+                </div>
+                <div id="searchContent" class="products-right-grids-bottom">
+                    @{
+                        var groups = Model.Select((o, i) => (i, o)).GroupBy(o => o.Item1 / 3);
+                        foreach (var group in groups)
+                        {
+                            <div class="col-md-4 products-right-grids-bottom-grid">
+                                @foreach ((int, Product) tuple in group)
+                                {
+                                    var product = tuple.Item2;
+                                    <div class="new-collections-grid1 products-right-grid1 animated slideInUp product-holder" data-id="@product.Id">
+                                        <div class="new-collections-grid1-image">
                                             <a asp-controller="Products" asp-action="Single" asp-route-id="@product.Id">
-                                                Quick View
+                                                <img src="@product.Images.FirstOrDefault()?.Url" alt=" " class="img-responsive">
                                             </a>
-                                        </div>
-                                        <div class="new-collections-grid1-right products-right-grids-pos-right">
-                                            <div class="rating">
-                                                @foreach (var image in product.Images)
-                                                {
-                                                    <div class="rating-left">
-                                                        <img src="@image.Url" alt=" " class="img-responsive" />
-                                                    </div>
-                                                }
-                                                <div class="clearfix"></div>
+                                            <div class="new-collections-grid1-image-pos products-right-grids-pos">
+                                                <a asp-controller="Products" asp-action="Single" asp-route-id="@product.Id">
+                                                    Quick View
+                                                </a>
+                                            </div>
+                                            <div class="new-collections-grid1-right products-right-grids-pos-right">
+                                                <div class="rating">
+                                                    @foreach (var image in product.Images)
+                                                    {
+                                                        <div class="rating-left">
+                                                            <img src="@image.Url" alt=" " class="img-responsive" />
+                                                        </div>
+                                                    }
+                                                    <div class="clearfix"></div>
+                                                </div>
                                             </div>
                                         </div>
+                                        <h4><a asp-controller="Products" asp-action="Single" asp-route-id="@product.Id"> @product.Name</a></h4>
+                                        <p>@product.ShortDescription</p>
+                                        <div class="simpleCart_shelfItem products-right-grid1-add-cart">
+                                            <p>
+                                                <i></i>
+                                                <span class="item_price">@product.Price</span>
+                                                <a asp-controller="Cart" asp-action="AddToCart" asp-route-id="@product.Id" asp-route-quantity="1" class="item_add" data-id="@product.Id"></a>
+                                            </p>
+                                        </div>
                                     </div>
-                                    <h4><a asp-controller="Products" asp-action="Single" asp-route-id="@product.Id"> @product.Name</a></h4>
-                                    <p>@product.ShortDescription</p>
-                                    <div class="simpleCart_shelfItem products-right-grid1-add-cart">
-                                        <p>
-                                            <i></i>
-                                            <span class="item_price">@product.Price</span>
-                                            <a asp-controller="Cart" asp-action="AddToCart" asp-route-id="@product.Id" asp-route-quantity="1" class="item_add" data-id="@product.Id"></a>
-                                        </p>
-                                    </div>
-                                </div>
-                            }
-                        </div>
+                                }
+                            </div>
+                        }
                     }
-                }
-                <div class="clearfix"></div>
+                    <div class="clearfix"></div>
+                </div>
+                <nav class="numbering animated  slideInRight">
+                    <ul id="pagination" class="pagination paging"></ul>
+                    <input type="hidden" id="page" name="page"/>
+                </nav>
+                <script>
+                </script>
             </div>
-            <nav class="numbering animated  slideInRight">
-                <ul id="pagination" class="pagination paging"></ul>
-            </nav>
-        </div>
-        <div class="clearfix"> </div>
+            <div class="clearfix"> </div>
+        </form>
     </div>
 </div>
 
 
 @section Scripts{
     <script src="/js/jquery.twbsPagination.min.js"></script>
-    <script>
-        $(function () {
-            var minPrice = 0, maxPrice = 1000000;
-            $("#slider-range").slider({
-                range: true,
-                min: 0,
-                max: 100000,
-                values: [0, 100000],
-                slide: function (event, ui) {
-                    $("#amount").val("$" + ui.values[0] + " - $" + ui.values[1]);
-                },
-                stop: function (event, ui) {
-                    minPrice = ui.values[0];
-                    maxPrice = ui.values[1];
-                }
-            });
-            $("#amount")
-                .val("$" + $("#slider-range").slider("values", 0) + " - $" + $("#slider-range").slider("values", 1));
-
+    <script>                        $("#slider-range").slider({
+            range: true,
+            min: 0,
+            max: 100000,
+            values: [@(ViewData["minPrice"]?? 0), @(ViewData["maxPrice"]?? 100000)],
+            step: 200,
+            slide: function(event, ui) {
+                $("#amount").val("$" + ui.values[0] + " - $" + ui.values[1]);
+            },
+            stop: function (event, ui) {
+                $("#minPrice").val(ui.values[0]);
+                $("#maxPrice").val(ui.values[1]);
+            }
         });
+        $("#amount").val("$" + $("#slider-range").slider("values", 0) + " - $" + $("#slider-range").slider("values", 1));
     </script>
+    <script>
+    $('#pagination').twbsPagination({
+        totalPages: @ViewData["totalPages"],
+        visiblePages: 7,
+        startPage: @ViewData["page"] +1,
+        initiateStartPageClick: false,
+        onPageClick: function(event, page) {
+            $("#page").val(page);
+            $("#searchForm").submit();
+        }
+    });</script>
 }
