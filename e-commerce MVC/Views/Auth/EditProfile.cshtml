@@ -1,56 +1,40 @@
-﻿@using ECommerce.Models.ViewModels
-@model ProfileViewModel
-<!-- mail -->
-@*<div class="mail animated wow zoomIn" data-wow-delay=".5s">
-        <div class="container">
-            <h3>Mail Us</h3>
-            <p class="est animated wow zoomIn" data-wow-delay=".5s">Welcome to the most useless thing in the entire universe.</p>
-            <div class="mail-grids">
-
-
-                <div class=" mail-grid-left animated wow slideInLeft" data-wow-delay=".5s">
-                    @if (!ViewContext.ModelState.IsValid)
-                    {
-                    <div class="alert alert-danger" role="alert" id="error_message" asp-validation-summary="All">
-                    </div>
-                    }
-                    @if (ViewData["success"]?.ToString() == "success")
-                    {
-                    <div class="success alert-success">
-                        Your message was submitted successfully.
-                    </div>
-                    }
-                    <form asp-controller="Home" asp-action="Contact" method="post" novalidate>
-                        <input type="text" asp-for="Name" placeholder="Name">
-                        <input type="email" asp-for="Email" placeholder="Email">
-                        <input type="text" asp-for="Subject" placeholder="Subject">
-                        <textarea placeholder="Message..." type="text" asp-for="Content"></textarea>
-                        <input type="submit" value="Submit Now">
-                    </form>
-                </div>
-
-                <div class="clearfix"> </div>
-            </div>
-            <iframe class="animated wow slideInLeft" data-wow-delay=".5s" src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3098.7638135888296!2d-77.47669308468912!3d39.04350424592369!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x89b63eb3bc8da92b%3A0x78c8e09ab1cabc90!2sShopping+Plaza%2C+Ashburn%2C+VA+20147%2C+USA!5e0!3m2!1sen!2sin!4v1457602090579" frameborder="0" style="border:0" allowfullscreen></iframe>
-        </div>
-    </div>*@
-<!-- mail -->
+﻿@model ECommerce.Models.ViewModels.ProfileViewModel
 <div class="mail animated wow zoomIn" data-wow-delay=".5s">
     <div class="container">
         <h3>Profile</h3>
         <p class="est animated wow zoomIn" data-wow-delay=".5s">Welcome to the most useless thing in the entire universe.</p>
         <div class="mail-grids">
             <div class="col-md-8 mail-grid-left animated wow slideInLeft" data-wow-delay=".5s">
-                <form id="editForm" novalidate>
-                    <div class="alert alert-danger" role="alert" id="error_message" hidden>
-                        <strong>Oh snap!</strong> Check Your Input.
-                    </div>
+                <form id="editForm" novalidate asp-controller="Auth" enctype="multipart/form-data" asp-action="EditProfile" method="post">
+                    @{ var hidden = "hidden"; }
 
+                    @if (!ViewData.ModelState.IsValid)
+                    {
+                        hidden = "";
+                    }
+
+                    <div class="alert alert-danger" role="alert" id="error_message" @hidden>
+                        @if (!ViewData.ModelState.IsValid)
+                        {
+                            @foreach (var modelState in ViewData.ModelState.Values)
+                            {
+                                @if (modelState.Errors.Count > 0 && !modelState.Errors[0].ErrorMessage.Equals("Invalid model."))
+                                {
+
+                                    @foreach (var error in modelState.Errors)
+                                    {
+                                        @error.ErrorMessage <br />
+                                    }
+                                }
+
+                            }
+                        }
+                    </div>
                     <div>
-                        <input type="text" value="@Model.Firstname" placeholder="First Name..." id="reg_first" onfocus="this.placeholder = '';" onblur="if (this.placeholder === '') {this.placeholder = 'First Name...';}">
-                        <input type="email" value="@Model.Lastname" placeholder="Last Name..." id="reg_last" onfocus="this.placeholder = '';" onblur="if (this.placeholder === '') {this.placeholder = 'Last Name...';}">
-                        <input type="text" value="@Model.Email" placeholder="Email Address..." id="reg_email" onfocus="this.placeholder = '';" onblur="if (this.placeholder === '') {this.placeholder = 'Email Address...';}">
-                        <input type="email" value="@Model.Phone" placeholder="Mobile Number..." id="reg_mobile" onfocus="this.placeholder = '';" onblur="if (this.placeholder === '') {this.placeholder = 'Mobile Number...';}">
+                        <input type="text" value="@Model.Firstname" asp-for="Firstname" placeholder="First Name..." id="reg_first" onfocus="this.placeholder = '';" onblur="if (this.placeholder === '') {this.placeholder = 'First Name...';}">
+                        <input type="email" value="@Model.Lastname" asp-for="Lastname" placeholder="Last Name..." id="reg_last" onfocus="this.placeholder = '';" onblur="if (this.placeholder === '') {this.placeholder = 'Last Name...';}">
+                        <input type="text" value="@Model.Email" asp-for="Email" placeholder="Email Address..." id="reg_email" onfocus="this.placeholder = '';" onblur="if (this.placeholder === '') {this.placeholder = 'Email Address...';}">
+                        <input type="email" value="@Model.Phone" asp-for="Phone" placeholder="Mobile Number..." id="reg_mobile" onfocus="this.placeholder = '';" onblur="if (this.placeholder === '') {this.placeholder = 'Mobile Number...';}">
 
                         <div id="usertags"></div>
 
@@ -58,9 +42,8 @@
 
                     <br />
                     <input type="file" name="image" class="form-control" id="imageUpload" style="visibility: hidden;height: 0;width: 0">
-                    
-                    <input type="submit" value="Save Changes" style="max-width:150px">
 
+                    <input type="submit" value="Save Changes" style="max-width:150px">
 
                 </form>
 
@@ -68,8 +51,8 @@
             </div>
             <div class="col-md-4 mail-grid-right animated wow slideInRight" data-wow-delay=".5s">
                 <div class="mail-grid-right1">
-                   
-                    <img src="@Model.ImageBase64" alt=" " class="img-responsive" style="height:150px ;width:150px"  id="imageView" />
+
+                    <img src="@Model.ImageBase64" alt=" " class="img-responsive" style="height:150px ;width:150px" id="imageView" />
 
                     <span>Upload</span>
                     <ul class="social-icons">
@@ -85,4 +68,5 @@
     </div>
 </div>
 <!-- //mail -->
-<!-- //mail -->
+<script src="/js/komy/common.js"></script>
+<script src="/js/komy/editProfile.js"></script>

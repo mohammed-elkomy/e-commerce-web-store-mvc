@@ -8,24 +8,50 @@
 
 
             <div class=" mail-grid-left animated wow slideInLeft" data-wow-delay=".5s">
-                @if (!ViewContext.ModelState.IsValid)
+                @{ var hidden = "hidden"; }
+
+                @if (!ViewData.ModelState.IsValid)
                 {
-                    <div class="alert alert-danger" role="alert" id="error_message" asp-validation-summary="All">
-                    </div>
+                    hidden = "";
                 }
+
+                <div class="alert alert-danger" role="alert" id="error_message" @hidden>
+                    @if (!ViewData.ModelState.IsValid)
+                    {
+                        @foreach (var modelState in ViewData.ModelState.Values)
+                        {
+                            @if (modelState.Errors.Count > 0 && !modelState.Errors[0].ErrorMessage.Equals("Invalid model."))
+                            {
+
+                                @foreach (var error in modelState.Errors)
+                                {
+                                    @error.ErrorMessage <br />
+                                }
+                            }
+
+                        }
+                    }
+                </div>
+
                 @if (ViewData["success"]?.ToString() == "success")
                 {
-                    <div class="success alert-success">
+                    <div class="success alert-success" id="success_message">
                         Your message was submitted successfully.
+
                     </div>
+                    <br id="success_message_br"/>
                 }
-                <form asp-controller="Home" asp-action="Contact" method="post" novalidate>
-                    <input type="text" asp-for="Name" placeholder="Name">
-                    <input type="email" asp-for="Email" placeholder="Email">
-                    <input type="text" asp-for="Subject" placeholder="Subject">
-                    <textarea placeholder="Message..." type="text"  asp-for="Content"></textarea>
+
+
+                <form id="contact_form" novalidate asp-controller="Home" asp-action="Contact" method="post">
+                    <input value="@Model.Name" type="text" asp-for="Name" placeholder="Name" id="name" onfocus="this.placeholder = '';" onblur="if (this.placeholder === '') {this.placeholder = 'Name';}">
+                    <input value="@Model.Email" type="email" asp-for="Email" placeholder="Email" id="email" onfocus="this.placeholder = '';" onblur="if (this.placeholder === '') {this.placeholder = 'Email';}">
+                    <input value="@Model.Subject" type="text" asp-for="Subject" placeholder="Subject" id="subject" onfocus="this.placeholder = '';" onblur="if (this.placeholder === '') {this.placeholder = 'Subject';}">
+                    <textarea placeholder="Message..." asp-for="Content" type="text" id="message" onfocus="this.placeholder = '';" onblur="if (''===this.placeholder) {this.placeholder = 'Message...';}"></textarea>
                     <input type="submit" value="Submit Now">
                 </form>
+
+
             </div>
 
             <div class="clearfix"> </div>
@@ -34,3 +60,6 @@
     </div>
 </div>
 <!-- //mail -->
+
+<script src="/js/komy/common.js"></script>
+<script src="/js/komy/contact.js"></script>

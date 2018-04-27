@@ -4,7 +4,7 @@ namespace ECommerce.Models.ViewModels
 {
     public class RegisterViewModel
     {
-        public string Id { get; set; }
+        //public string Id { get; set; }
 
         [Required(ErrorMessage = "User Name is Required")]
         [StringLength(50, ErrorMessage = "Exceeded the length for user name")]
