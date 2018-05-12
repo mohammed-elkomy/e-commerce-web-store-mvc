@@ -91,8 +91,11 @@ namespace ECommerce
 
         private async Task SeedUserRoles(RoleManager<UserRole> roleManager)
         {
-            if(roleManager.FindByNameAsync("Admin")!=null)
+            var role_async_is_found =await roleManager.FindByNameAsync("Admin");
+
+            if (role_async_is_found != null)
                 return;
+
             await roleManager.CreateAsync(new UserRole {Name = "Admin"});
         }
 

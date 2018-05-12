@@ -49,7 +49,7 @@
                                     </a>
                                 </div>
                                 <div class="new-products-grid-right">
-                                    <h4><a href="single.html">@product.Name</a></h4>
+                                    <h4><a asp-controller="Products" asp-action="Single" asp-route-id="@product.Id">@product.Name</a></h4>
                                     <div class="simpleCart_shelfItem new-products-grid-right-add-cart">
                                         <p>
                                             <span class="item_price">@product.Price.ToString("C")</span>
@@ -127,12 +127,11 @@
                                             </div>
                                             <div class="new-collections-grid1-right products-right-grids-pos-right">
                                                 <div class="rating">
-                                                    @foreach (var image in product.Images)
-                                                    {
+                                                  
                                                         <div class="rating-left">
-                                                            <img src="@image.Url" alt=" " class="img-responsive" />
+                                                            <img src="@product.Images.First().Url" alt=" " class="img-responsive" />
                                                         </div>
-                                                    }
+                                                    
                                                     <div class="clearfix"></div>
                                                 </div>
                                             </div>
@@ -142,7 +141,7 @@
                                         <div class="simpleCart_shelfItem products-right-grid1-add-cart">
                                             <p>
                                                 <i></i>
-                                                <span class="item_price">@product.Price</span>
+                                                <span class="item_price">$@product.Price</span>
                                                 <a asp-controller="Cart" asp-action="AddToCart" asp-route-id="@product.Id" asp-route-quantity="1" class="item_add" data-id="@product.Id"></a>
                                             </p>
                                         </div>

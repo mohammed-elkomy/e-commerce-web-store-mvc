@@ -16,11 +16,14 @@ namespace ECommerce.Controllers
         private readonly UserManager<User> _userManager;
         private readonly DataContext _context;
 
-        public AuthController(SignInManager<User> signInManager, UserManager<User> userManager, DataContext context)
+
+
+        public AuthController(SignInManager<User> signInManager, UserManager<User> userManager, DataContext context, RoleManager<UserRole> roleManager)
         {
             _signInManager = signInManager;
             _userManager = userManager;
             _context = context;
+         
         }
 
         private IActionResult RedirectToLocal(string returnUrl)
@@ -49,8 +52,15 @@ namespace ECommerce.Controllers
                 {
 
                     var CurrentUser = _context.Users.Where(user => user.UserName == model.UserName).First();
+                    
+                    var roles = await _userManager.GetRolesAsync(CurrentUser);
+
                     var retString = (CurrentUser.Firstname + " " + CurrentUser.Lastname);
+
                     Response.Cookies.Append("user name ui", retString.Substring(0, System.Math.Min(retString.Length, 15)), new CookieOptions { Expires = DateTime.Now.AddYears(1000) });
+
+                    if(roles.Count > 0)
+                        Response.Cookies.Append("user role ui", roles[0]);
 
                     return RedirectToLocal(returnUrl);
                 }
@@ -125,6 +135,9 @@ namespace ECommerce.Controllers
         public async Task<IActionResult> Logout()
         {
             await _signInManager.SignOutAsync();
+            Response.Cookies.Delete("user name ui");
+            Response.Cookies.Delete("user role ui");
+           
             return RedirectToAction("Index", "Home");
         }
 
@@ -150,6 +163,8 @@ namespace ECommerce.Controllers
             if (ModelState.IsValid)
             {
                 var user = await _userManager.GetUserAsync(HttpContext.User);
+                // Get the roles for the user
+               
 
                 if (image != null && image.Length > 0)
                     using (var stream = System.IO.File.OpenWrite($"./private_storage/userImages/{user.Id}.jpg"))
@@ -165,6 +180,7 @@ namespace ECommerce.Controllers
 
                 var retString = (CurrentUser.Firstname + " " + CurrentUser.Lastname);
                 Response.Cookies.Append("user name ui", retString.Substring(0, System.Math.Min(retString.Length, 15)), new CookieOptions { Expires = DateTime.Now.AddYears(1000) });
+              
 
                 return RedirectToAction(nameof(Profile), new { returnUrl= returnUrl, success = true });
             }

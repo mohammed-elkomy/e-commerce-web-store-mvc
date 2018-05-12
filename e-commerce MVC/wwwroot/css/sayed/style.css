@@ -1,0 +1,26 @@
+@charset "utf-8";
+/* CSS Document */
+body { background-color: #FFF;}
+#header  {
+	margin: 0px auto;
+	width: 400px;
+	text-align: center;
+}
+#container{
+	margin: 0 auto;
+	width: 300px;
+	
+}
+#product_name{
+	width: 300px;
+}
+#product_category{
+	width: 300px;
+}
+#product_sub_category{
+	width: 300px;
+}
+#product_images{
+	width: 300px;
+}
+.clear { width:100%; clear:both;}

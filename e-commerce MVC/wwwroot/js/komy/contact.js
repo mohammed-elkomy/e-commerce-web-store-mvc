@@ -21,10 +21,7 @@ $(document).ready(function () {
             event.preventDefault();
         }
         else $("#error_message").hide();
-
-        
     });
-
     $("#message").val("")
 });
 

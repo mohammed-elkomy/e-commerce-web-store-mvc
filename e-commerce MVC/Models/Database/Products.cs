@@ -27,10 +27,12 @@ namespace ECommerce.Models.Database
         public string Image3 { get; set; }
         [Column("price")]
         public double Price { get; set; }
+
         [Column("description", TypeName = "text")]
         public string Description { get; set; }
         [StringLength(255)]
         public string ShortDescription { get; set; }
+
         [Column("category")]
         public int Category { get; set; }
         [Column("sold_count")]

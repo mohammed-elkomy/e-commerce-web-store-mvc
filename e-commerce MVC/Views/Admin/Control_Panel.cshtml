@@ -1,0 +1,67 @@
+﻿@{
+    Layout = "";
+}
+
+@model ECommerce.Models.NewDb.Product
+
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>Admin Panel</title>
+    <link href="/css/sayed/bootstrap.min.css" rel="stylesheet" type="text/css">
+    <link href="/css/sayed/style.css" rel="stylesheet" type="text/css">
+    <script type="text/javascript" src="/js/sayed/bootstrap.min.js"></script>
+</head>
+<body>
+    <div id="header">
+        <h1>Best Store Admin Panel</h1>
+        <h3>Add New Product</h3><br><br>
+    </div>
+    <form id="container" enctype="multipart/form-data" novalidate asp-controller="Admin" asp-action="Add_product" method="post">
+        <div class="form-group" id="product_name">
+            <label class="">Product Name:</label>
+            <input class="form-control" type="text" asp-for="Name">
+        </div>
+
+        <div class="form-group" id="product_name">
+            <label class="">Short des:</label>
+            <input class="form-control" type="text" asp-for="ShortDescription">
+        </div>
+
+        <div class="form-group" id="product_name">
+            <label class="">Long des:</label>
+            <input class="form-control" type="text" asp-for="Description">
+        </div>
+
+        <div class="form-group" id="product_category">
+            <label>Product Category:</label>
+            <select class="form-control" id="sel1" name="category">
+                <option>Men</option>
+                <option>Women</option>
+            </select>
+        </div>
+
+        <div class="form-group" id="product_sub_category">
+            <label>Product Sub Category:</label>
+            <select class="form-control" id="sub_category" name="sub-category">
+                <option>T-Shirts</option>
+            </select>
+        </div>
+
+        <div class="form-group" id="product_images">
+            <label>Product Images</label>
+            <input class="form-control" type="file" name="Images" multiple >
+        </div>
+
+        <div class="form-group" id="product_price">
+            <label>Product Price</label>
+            <input class="form-control" asp-for="Price">
+        </div>
+
+        <div class="form-group">
+            <input class="form-control btn-primary" type="submit" name="" value="Publish">
+        </div>
+    </form>
+</body>
+</html>

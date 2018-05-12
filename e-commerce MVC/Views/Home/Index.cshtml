@@ -162,7 +162,7 @@
     <div class="container">
         <h3 class="animated wow zoomIn" data-wow-delay=".5s">Best in Shop</h3>
         <div class="new-collections-grids">
-            @for (var i = 4; i < Model.Count; i = i + 2)
+            @for (var i = 4; i < Model.Count- Model.Count%2; i = i + 2)
             {
                 <div class="col-md-3 new-collections-grid">
                     <div class="new-collections-grid1 animated wow slideInUp" data-wow-delay=".5s">
@@ -175,12 +175,11 @@
                             </div>
                             <div class="new-collections-grid1-right">
                                 <div class="rating">
-                                    @foreach (var img in Model[i].Images)
-                                    {
+                               
                                         <div class="rating-left">
-                                            <img src="@img.Url" alt=" " class="img-responsive" />
+                                            <img src="@Model[i + 1].Images.First().Url" alt=" " class="img-responsive" />
                                         </div>
-                                    }
+                                    
                                     <div class="clearfix"> </div>
                                 </div>
                             </div>
@@ -204,12 +203,11 @@
                             </div>
                             <div class="new-collections-grid1-right">
                                 <div class="rating">
-                                    @foreach (var img in Model[i + 1].Images)
-                                    {
+                                   
                                         <div class="rating-left">
-                                            <img src="@img.Url" alt=" " class="img-responsive" />
+                                            <img src="@Model[i + 1].Images.First().Url" alt=" " class="img-responsive" />
                                         </div>
-                                    }
+                                   
                                     <div class="clearfix"> </div>
                                 </div>
                             </div>

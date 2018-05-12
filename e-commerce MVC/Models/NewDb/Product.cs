@@ -21,15 +21,20 @@ namespace ECommerce.Models.NewDb
         public string Name { get; set; }
         [StringLength(255)]
         public string ShortDescription { get; set; }
+
         [Column(TypeName = "text")]
         public string Description { get; set; }
         [Required]
+
         [Range(Double.Epsilon, Double.MaxValue)]
         public double Price { get; set; }
+
         [Range(0, int.MaxValue)]
         public int SoldCount { get; set; }
+
         [Required]
         public int UserId { get; set; }
+
         [Required]
         public int CategoryId { get; set; }
 
