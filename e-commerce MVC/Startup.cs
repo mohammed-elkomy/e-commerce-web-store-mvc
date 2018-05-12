@@ -66,6 +66,10 @@ namespace ECommerce
 
         private async Task Seed(UserManager<User> userManager, RoleManager<UserRole> roleManager, DataContext context)
         {
+            //context
+            //    .Products.RemoveRange(context.Products.Where(obj => obj.Images.Count == 0));
+            //context.SaveChanges();
+                
             await SeedUserRoles(roleManager);
             await SeedUsers(userManager);
             SeedDatabase(context);
